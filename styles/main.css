@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'Monda';
-    src: url('fonts/Monda-Regular.eot'); /* IE9 Compat Modes */
-    src: url('fonts/Monda-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-         url('fonts/Monda-Regular.woff') format('woff'), /* Modern Browsers */
-         url('fonts/Monda-Regular.ttf')  format('truetype'), /* Safari, Android, iOS */
-         url('fonts/Monda-Regular.svg#svgFontName') format('svg'); /* Legacy iOS */
+    src: url('../vendor/fonts/Monda-Regular.eot'); /* IE9 Compat Modes */
+    src: url('../vendor/fonts/Monda-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../vendor/fonts/Monda-Regular.woff') format('woff'), /* Modern Browsers */
+         url('../vendor/fonts/Monda-Regular.ttf')  format('truetype'), /* Safari, Android, iOS */
+         url('../vendor/fonts/Monda-Regular.svg#svgFontName') format('svg'); /* Legacy iOS */
 }
 
 /* For jumbotron inline name display */
