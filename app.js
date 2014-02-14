@@ -8,7 +8,9 @@ $(function(){
     agent.assertion = assertion;
     $.post('http://localhost:9000/auth/login', { assertion: assertion }, function(response){
       console.log('Persona.onlogin()', response);
+      agent = response;
       agent.authenticated = true;
+
     });
   };
 

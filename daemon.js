@@ -2,6 +2,7 @@ var http = require('http');
 var express = require('express');
 var cors = require('cors');
 var request = require('superagent');
+var md5 = require('js-md5');
 
 daemon = express();
 daemon.use(cors());
@@ -14,6 +15,7 @@ daemon.post('/auth/login', function(req, res){
       audience: 'http://localhost:8080'
     })
     .end(function(vres){
+      vres.body.md5email = md5(vres.body.email);
       console.log(vres.body);
       res.json(vres.body);
     });
