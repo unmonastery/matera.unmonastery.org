@@ -1,0 +1,16 @@
+{
+  "name": "unmonastery.eu",
+  "version": "0.0.0",
+  "description": "unmonastery.eu ==============",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Unlicense",
+  "dependencies": {
+    "cors": "~2.1.1",
+    "express": "~3.4.8",
+    "superagent": "~0.16.0"
+  }
+}
