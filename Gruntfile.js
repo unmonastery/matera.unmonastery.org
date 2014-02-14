@@ -10,6 +10,17 @@ module.exports = function(grunt){
         }
       }
     },
+    handlebars: {
+      compile: {
+        options: {
+          namespace: 'JST',
+          processName: function(filePath){ return filePath.split('/')[1].replace('.hbs', ''); }
+        },
+        files: {
+          'templates.js': 'templates/*.hbs'
+        }
+      }
+    },
     develop: {
       daemon: {
         file: 'daemon.js'
@@ -17,10 +28,14 @@ module.exports = function(grunt){
     },
     watch: {
       app: {
-        files: ['app.js', 'people.html'],
+        files: ['app.js', 'templates.js', 'people.html'],
         options: {
           livereload: true
         }
+      },
+      handlebars: {
+        files: ['templates/*.hbs'],
+        tasks: ['handlebars']
       },
       daemon: {
         files: ['daemon.js'],
@@ -34,6 +49,7 @@ module.exports = function(grunt){
 
   // app
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-handlebars');
 
   // daemon
   grunt.loadNpmTasks('grunt-develop');
@@ -42,5 +58,5 @@ module.exports = function(grunt){
   grunt.loadNpmTasks('grunt-contrib-watch');
 
 
-  grunt.registerTask('default', ['connect', 'develop', 'watch']);
+  grunt.registerTask('default', ['connect', 'handlebars', 'develop', 'watch']);
 };
