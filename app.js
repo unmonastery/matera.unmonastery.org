@@ -32,16 +32,24 @@ $(function(){
 
   var login = function(assertion){
     agent.assertion = assertion;
-    $.post('http://localhost:9000/auth/login', { assertion: assertion }, function(response){
-      console.log('Persona.onlogin()', response);
-      agent.set(response);
+    superagent.post('http://localhost:9000/auth/login')
+    .withCredentials()
+    .send({ assertion: assertion })
+    .end(function(response){
+      var data = JSON.parse(response.text);
+      console.log('Persona.onlogin()', data);
+      agent.set(data);
       agent.authenticated = true;
-
     });
   };
 
+  // FIXME update agent model and views after logout
   var logout =  function(){
-    $.post('http://localhost:9000/auth/logout', { assertion: agent.assertion }, function(response){
+    // FIXME decide if needs to sent assertion!
+    superagent.post('http://localhost:9000/auth/logout')
+    .withCredentials()
+    .send({ assertion: agent.assertion })
+    .end(function(response){
       console.log('Persona.onlogout()', response);
       agent.authenticated = false;
     });
