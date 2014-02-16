@@ -50,10 +50,29 @@
   font-size: 26px;
 }
 
+/* Logout dropdown menu */
+.logout {
+    margin-top:60px; /* This amount is avatar margin + img height */
+}
+
+/* Make corners square */
+.dropdown-menu {
+  border-radius: 0px;
+}
+
+.avatar {
+  width: 50px;
+  margin-top:10px;
+}
+
 /* No hover bg on nav */
 
+.nav > li > a {
+  color: #000;
+}
 .nav > li > a:hover,
 .nav > li > a:focus {
+  color: #000;
   text-decoration: none;
   background-color: transparent;
 }
@@ -72,8 +91,7 @@
 /* Lower button */
 
 .sign-in {
-	margin-top:15px;
-
+  margin-top:15px;
 }
 
 /* Change panel border color from #ddd */

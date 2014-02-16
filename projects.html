@@ -54,17 +54,23 @@
             <li><a href="#blog">Blog</a></li>
           </ul>
 
-          <div id="agentMenu" class="navbar-right" role="menu" aria-labelledby="dLabel"> 
+      <!--<button type="button" class="btn btn-default navbar-btn navbar-right sign-in">Sign in</button>-->
 
-            <button type="button" class="btn btn-default navbar-btn sign-in" data-toggle="dropdown">Sign in</button>
+          <div id="agentMenu">
 
-              <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Preferences</a></li>
-                <li role="presentation" class="divider"></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-              </ul>
+               <div class="dropdown" role="menu" aria-labelledby="dLabel"> 
 
-            <!-- IF LOGGED IN <img class="img-thumbnail navbar-right" src="http://www.gravatar.com/avatar/"> -->
+
+               <img class="navbar-right avatar" src="http://www.gravatar.com/avatar" data-toggle="dropdown">
+               
+
+                  <ul class="dropdown-menu dropdown-menu-right logout" role="menu">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Preferences</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Log out</a></li>
+                  </ul>
+
+              </div>
           </div>
 
         </div><!-- /.nav-collapse -->
