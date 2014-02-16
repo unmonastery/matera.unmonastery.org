@@ -7,12 +7,6 @@
          url('../vendor/fonts/Monda-Regular.svg#svgFontName') format('svg'); /* Legacy iOS */
 }
 
-/* For jumbotron inline name display */
-
-.inline-header {
-	font-size: 4em;
-}
-
 /* Adjusting jumbtron padding */
 
 .jumbotron {
@@ -20,6 +14,11 @@
   margin-bottom: 10px;
   color: inherit;
   background-color: #eee;
+}
+
+/* Jumbotron h1 smaller */
+.jumbotron h1 {
+  font-size: 4.5em;
 }
 
 /* Increase top & bottom margin */
@@ -30,20 +29,20 @@
   font-weight: 200;
 }
 
-/* For unMon logo in header bar */
+/* Scale images in navbar */
 
-.brand-img-sm {
-	max-height: 35px;
+.navbar img {
+	max-height: 120%;
 	padding: 0px 0px 0px 25px;
 	display:inline;
 }
 
 /* Changes to the navigation bar */
 
-.custom-nav {
+.navbar {
 	background-color: #FFF;
 	height:70px;
-    box-shadow: 0 5px 8px rgba(0, 0, 0, .05);
+  box-shadow: 0 5px 8px rgba(0, 0, 0, .05);
 }
 
 .navbar-brand {
@@ -51,6 +50,7 @@
 }
 
 /* Logout dropdown menu */
+
 .logout {
     margin-top:60px; /* This amount is avatar margin + img height */
 }
@@ -58,21 +58,18 @@
 /* Make corners square */
 .dropdown-menu {
   border-radius: 0px;
+  margin-top:60px; 
 }
 
 .avatar {
-  width: 50px;
+  width: 75px;
   margin-top:10px;
 }
 
 /* No hover bg on nav */
 
-.nav > li > a {
-  color: #000;
-}
 .nav > li > a:hover,
 .nav > li > a:focus {
-  color: #000;
   text-decoration: none;
   background-color: transparent;
 }
@@ -111,7 +108,7 @@
   border-bottom-color: #eee;
 }
 
-/* Change list-group border and hover background color */
+/* Change list-group border and hover background color
 
 .list-group {
   padding-left: 0;
