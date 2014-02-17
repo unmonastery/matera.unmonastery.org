@@ -1,5 +1,36 @@
 $(function(){
 
+  var unMons = [
+    {
+      "name": "Kei Kreutler",
+      "email": "kei@ourmachine.net"
+    },
+    {
+      "name": "Ben Vickers",
+      "email": "ben@vickers.tv"
+    },
+    {
+      "name": "Cristiano Siri",
+      "email": "cristiano.siri@gmail.com"
+    },
+    {
+      "name": "Bembo Davies",
+      "email": "bem.davies@gmail.com"
+    },
+    {
+      "name": "elf Pavlik",
+      "email": "perpetual-tripper@wwelves.org"
+    },
+    {
+      "name": "Katalin Hausner",
+      "email": "katalinhausel@gmail.com"
+    },
+    {
+      "name": "Marc Schneider",
+      "email": "marc@mirelsol.org"
+    }
+  ];
+
   var Person = Backbone.Model.extend({
     initialize: function(){
       _.bindAll(this, 'setAvatar');
@@ -9,6 +40,10 @@ $(function(){
     setAvatar: function(){
       this.set('avatar', 'http://gravatar.com/avatar/' + this.get('md5email'));
     }
+  });
+
+  var Crew = Backbone.Collection.extend({
+    model: Person
   });
 
   var AgentMenu = Backbone.View.extend({
@@ -34,8 +69,31 @@ $(function(){
     }
   });
 
+  var CrewView = Backbone.View.extend({
+    el: '#crew',
+
+    initialize: function(){
+      _.bindAll(this, 'render');
+      this.render();
+    },
+
+    render: function(){
+      this.collection.each(function(person){
+        this.$el.append(JST.nameLink(person.toJSON()));
+      }.bind(this));
+    }
+  });
+
   var agent = new Person();
+  var crew = new Crew(unMons);
   var agentMenu = new AgentMenu({ model: agent });
+  var crewVeiw = new CrewView({ collection: crew });
+
+  // debug
+  window.un = {
+    agent: agent,
+    crew: crew
+  };
 
   var login = function(assertion){
     agent.assertion = assertion;
@@ -68,6 +126,4 @@ $(function(){
     onlogout: logout
   });
 
-  // debug
-  window.agent = agent;
 });
