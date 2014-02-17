@@ -14,21 +14,28 @@ $(function(){
   var AgentMenu = Backbone.View.extend({
     el: '#agentMenu',
 
+    events: {
+      'click .sign-in': 'login'
+    },
+
     initialize: function(){
       _.bindAll(this, 'render');
-      this.model.on('change:avatar', this.render);
+      this.model.on('change:authenticated', this.render);
+      this.render();
     },
 
     render: function(){
       var partial = JST.agentMenu(this.model.toJSON());
       this.$el.html(partial);
+    },
+
+    login: function(){
+      navigator.id.request();
     }
   });
 
   var agent = new Person();
   var agentMenu = new AgentMenu({ model: agent });
-
-  $('.sign-in').on('click', function(){ navigator.id.request(); });
 
   var login = function(assertion){
     agent.assertion = assertion;
@@ -39,11 +46,10 @@ $(function(){
       var data = JSON.parse(response.text);
       console.log('Persona.onlogin()', data);
       agent.set(data);
-      agent.authenticated = true;
+      agent.set('authenticated', true);
     });
   };
 
-  // FIXME update agent model and views after logout
   var logout =  function(){
     // FIXME decide if needs to sent assertion!
     superagent.post('http://localhost:9000/auth/logout')
@@ -51,7 +57,7 @@ $(function(){
     .send({ assertion: agent.assertion })
     .end(function(response){
       console.log('Persona.onlogout()', response);
-      agent.authenticated = false;
+      agent.set('authenticated', false);
     });
   };
 

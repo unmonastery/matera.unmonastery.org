@@ -1,1 +1,6 @@
-<img src="{{avatar}}" />
+{{#if authenticated}}
+  <img src="{{avatar}}" />
+{{else}}
+  <button type="button" class="btn btn-default navbar-btn navbar-right sign-in">Sign in</button>
+{{/if}}
+
