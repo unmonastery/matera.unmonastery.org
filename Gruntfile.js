@@ -13,12 +13,7 @@ module.exports = function(grunt){
     less : {
       development: {
         files: {
-          "styles/less-compile.css": "styles/import.less"
-        }
-      },
-      production: {
-        files: {
-          "styles/less-compile.css": "styles/import.less"
+          "styles/less-compile.css": "styles/variables-override.less"
         }
       }
     },
@@ -71,5 +66,5 @@ module.exports = function(grunt){
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // less
-  grunt.registerTask('default', ['connect', 'handlebars', 'develop', 'watch']);
+  grunt.registerTask('default', ['connect', 'less', 'handlebars', 'develop', 'watch']);
 };

@@ -1,16 +1,31 @@
 /* Override less variables */
 
-@import "../bower_components/boostrap/less/bootstrap.less";
+@import "../bower_components/bootstrap/less/bootstrap.less";
 
-@brand-primary:         #8ba870;
+/* Type */
+
+@font-family-sans-serif:		'Monda'; // "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-family-serif:				'Monda'; // Georgia, "Times New Roman", Times, serif;
+@brand-primary:					#8ba870;
+
+/* Panels */
+
+@panel-inner-border:			@gray-lighter;
+@panel-default-border:			@gray-lighter;
+
+/* List groups */
+
+@list-group-border:				@gray-lighter;
+@list-group-active-color:		@brand-primary;
+@list-group-link-color:			@gray-dark;
+@list-group-hover-bg: 			@brand-primary;	
+@list-group-active-bg:			@gray-lighter;
+@list-group-active-border:		@gray-lighter;
 
 
-@list-group-border:			@gray-lighter;
+/* Navbar */
+@navbar-inverse-brand-hover-bg: #FFF;
+@navbar-inverse-link-hover-bg:	#FFF;
+@navbar-default-link-hover-bg:	#FFF;
+@navbar-default-link-active-bg:	#FFF;
 
-@list-group-hover-bg: 		@brand-primary;	
-
-@list-group-link-color:		@brand-primary;
-
-@list-group-active-bg:		@brand-primary;
-
-@list-group-active-border:	@brand-primary;

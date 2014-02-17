@@ -8,13 +8,14 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
-    <title>unMonastery: [Name]</title>
+    <title>unMonastery: [Project name]</title>
 
     <!-- Bootstrap core CSS -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="vendor/css/offcanvas.css" rel="stylesheet">
+    <link href="styles/less-compile.css" rel="stylesheet">
     <link href="styles/main.css" rel="stylesheet">
 
 
@@ -29,7 +30,7 @@
   </head>
 
   <body>
-    <div class="navbar navbar-fixed-top custom-nav" role="navigation">
+    <div class="navbar navbar-fixed-top" role="navigation">
 
       <div class="container">
         <div class="navbar-header">
@@ -39,14 +40,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-
-
         </div>
+
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <!--<li><img class="img-sm" src="images/unMonastery.png"></li>-->
             <li>
-              <a class="navbar-brand" href="#">unMonastery<img class="brand-img-sm" src="assets/images/unMonastery.png"></a>
+              <a class="navbar-brand" href="#">unMonastery<img class="logo" src="assets/images/unMonastery.png"></a>
             </li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#people">People</a></li>
@@ -54,7 +54,22 @@
             <li><a href="#blog">Blog</a></li>
           </ul>
 
-          <button type="button" class="btn btn-default navbar-btn navbar-right sign-in">Sign in</button>
+      <!--<button type="button" class="btn btn-default navbar-btn navbar-right sign-in">Sign in</button>-->
+
+          <div id="agentMenu">
+
+               <div class="dropdown" role="menu" aria-labelledby="dLabel"> 
+
+               <img class="navbar-right avatar" src="http://www.gravatar.com/avatar" data-toggle="dropdown">               
+
+                  <ul class="dropdown-menu dropdown-menu-right logout" role="menu">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Preferences</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Log out</a></li>
+                  </ul>
+
+              </div>
+          </div>
 
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
@@ -69,20 +84,21 @@
           <p class="pull-right visible-xs">
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
           </p>
+
           <div class="jumbotron">
             <img class="img-thumbnail" src="assets/images/gravatar.jpg">
-            <span class="inline-header">[Name]</span>
+            <h1>[Name]</h1>
             <p>A brief tagline in any way you imagine it!</p>
           </div>
 
-          <div class="panel panel-default">
-            <div class="panel-heading">Project name</div>
+          <div id="video" class="panel panel-default">
+            <div class="panel-heading">Video name [if different from project name]</div>
             <div class="panel-body">
-              Description of project, any relevant updates, link to project page
+              Video embed
             </div>
           </div>
 
-          <div class="row">
+         <div class="row">
             <div class="col-md-4">
               <h2>Activites</h2>
               <p>Improvised Trello widget?</p>
@@ -105,6 +121,9 @@
          
           </div><!--/row-->
         </div><!--/span-->
+
+
+
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
 
@@ -147,10 +166,6 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="bower_components/handlebars/handlebars.runtime.js"></script>
-    <script src="vendor/js/offcanvas.js"></script>
-    <script src="https://login.persona.org/include.js"></script>
-    <script src="templates.js"></script>
-    <script src="app.js"></script>
+    <script src="vendor/js/offcanvas.js"></script> <!-- FIXME -->
   </body>
 </html>
