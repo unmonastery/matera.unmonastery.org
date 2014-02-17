@@ -3,7 +3,8 @@ $(function(){
   var unMons = [
     {
       "name": "Kei Kreutler",
-      "email": "kei@ourmachine.net"
+      "email": "kei@ourmachine.net",
+      "md5email": "d87e3342938497fd997c8fdc00dfe891"
     },
     {
       "name": "Ben Vickers",
@@ -35,6 +36,9 @@ $(function(){
     initialize: function(){
       _.bindAll(this, 'setAvatar');
       this.on('change:md5email', this.setAvatar);
+      if(this.get('md5email')){
+        this.setAvatar();
+      }
     },
 
     setAvatar: function(){
@@ -84,10 +88,25 @@ $(function(){
     }
   });
 
+  var Profile = Backbone.View.extend({
+    el: '#profile',
+
+    initialize: function(){
+      _.bindAll(this, 'render');
+      this.render();
+    },
+
+    render: function(){
+      var partial = JST.profile(this.model.toJSON());
+      this.$el.html(partial);
+    }
+  });
+
   var agent = new Person();
   var crew = new Crew(unMons);
   var agentMenu = new AgentMenu({ model: agent });
   var crewVeiw = new CrewView({ collection: crew });
+  var profile = new Profile({ model: crew.at(0) });
 
   // debug
   window.un = {
