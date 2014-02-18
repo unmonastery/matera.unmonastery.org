@@ -62,35 +62,39 @@ $(function(){
     },
 
     people: function(){
-      var sideNav = new SideNav({ collection: crew });
+      var index = new Index({ collection: crew });
     },
 
     person: function(part){
       var profile = new Profile({ model: crew.findWhere({path: '/people/' + part}) });
+      var sideNav = new SideNav({ collection: crew });
     },
 
     challenges: function(){
-      var sideNav = new SideNav({ collection: challenges });
+      var index = new Index({ collection: challenges });
     },
 
     challenge: function(part){
       var profile = new Profile({ model: challenges.findWhere({path: '/challenges/' + part}) });
+      var sideNav = new SideNav({ collection: challenges });
     },
 
     projects: function(){
-      var sideNav = new SideNav({ collection: projects });
+      var index = new Index({ collection: projects });
     },
 
     project: function(part){
       var profile = new Profile({ model: projects.findWhere({path: '/projects/' + part}) });
+      var sideNav = new SideNav({ collection: projects });
     },
 
     peers: function(){
-      var sideNav = new SideNav({ collection: peers });
+      var index = new Index({ collection: peers });
     },
 
     peer: function(part){
       var profile = new Profile({ model: peers.findWhere({path: '/peers/' + part}) });
+      var sideNav = new SideNav({ collection: peers });
     }
   });
 
@@ -164,6 +168,38 @@ $(function(){
       router.navigate(event.target.attributes.href.value, { trigger: true });
     }
   });
+
+  var Index = Backbone.View.extend({
+    el: '#index',
+
+    events: {
+      'click a': 'showProfile'
+    },
+
+    initialize: function(){
+      _.bindAll(this, 'render');
+      this.render();
+    },
+
+    render: function(){
+      this.$el.html('');
+      var row;
+      this.collection.each(function(resource, index){
+        if(index % 3 == 0){
+          row = $('<div class="row"></div>');
+          this.$el.append(row);
+          window.foo = row;
+        }
+        row.append(JST.indexLink(resource.toJSON()));
+      }.bind(this));
+    },
+
+    showProfile: function(event){
+      event.preventDefault();
+      router.navigate(event.target.attributes.href.value, { trigger: true });
+    }
+  });
+
 
   var Profile = Backbone.View.extend({
     el: '#profile',
