@@ -3,6 +3,7 @@ $(function(){
   var Person = Backbone.Model.extend({
     initialize: function(){
       _.bindAll(this, 'setAvatar');
+      this.on('change:description', this.save);
       this.on('change:md5email', this.setAvatar);
       if(this.get('md5email')){
         this.setAvatar();
@@ -11,7 +12,16 @@ $(function(){
 
     setAvatar: function(){
       this.set('avatar', 'http://gravatar.com/avatar/' + this.get('md5email'));
+    },
+
+    //FIXME override Backbone.sync
+    save: function(){
+      superagent.put('http://localhost:9000' + this.attributes.path)
+      .withCredentials()
+      .send(this.toJSON())
+      .end(function(response){ console.log('UPDATE: ', response); });
     }
+
   });
 
   // FIXME !!!DRY!!!
@@ -66,7 +76,9 @@ $(function(){
     },
 
     person: function(part){
-      var profile = new Profile({ model: crew.findWhere({path: '/people/' + part}) });
+      var profile = new Profile({
+        model: crew.findWhere({path: '/people/' + part})
+      });
     },
 
     challenges: function(){
@@ -176,6 +188,13 @@ $(function(){
     render: function(){
       var partial = JST.profile(this.model.toJSON());
       this.$el.html(partial);
+      if(this.model.attributes.email === agent.attributes.email){
+        var description = this.$el.find('[property=description]').hallo();
+        description.hallo();
+        description.bind('hallodeactivated', function(event, data){
+          this.model.set('description', event.target.innerHTML);
+        }.bind(this));
+      }
     }
   });
 

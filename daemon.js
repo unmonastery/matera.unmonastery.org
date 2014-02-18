@@ -38,5 +38,19 @@ daemon.post('/auth/logout', function(req, res){
   res.send(200);
 });
 
+function savePerson (req, res){
+  if(req.session.agent.email === req.body.email){
+    console.log('ACCEPTED:', req.body);
+    res.send(200);
+  } else {
+    console.log('REJECTED:', req.body);
+    res.send(403);
+  }
+}
+
+daemon.post('/people/:part', savePerson);
+daemon.put('/people/:part', savePerson);
+
+
 var server = http.createServer(daemon);
 server.listen(9000);
