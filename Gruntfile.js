@@ -10,6 +10,13 @@ module.exports = function(grunt){
         }
       }
     },
+    less : {
+      development: {
+        files: {
+          "styles/less-compile.css": "styles/variables-override.less"
+        }
+      }
+    },
     handlebars: {
       compile: {
         options: {
@@ -49,6 +56,7 @@ module.exports = function(grunt){
 
   // app
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-handlebars');
 
   // daemon
@@ -57,6 +65,6 @@ module.exports = function(grunt){
   // common
   grunt.loadNpmTasks('grunt-contrib-watch');
 
-
-  grunt.registerTask('default', ['connect', 'handlebars', 'develop', 'watch']);
+  // less
+  grunt.registerTask('default', ['connect', 'less', 'handlebars', 'develop', 'watch']);
 };

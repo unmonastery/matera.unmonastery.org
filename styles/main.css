@@ -7,22 +7,6 @@
          url('../vendor/fonts/Monda-Regular.svg#svgFontName') format('svg'); /* Legacy iOS */
 }
 
-/* Index grid */
-
-.index-container {
-  width: 100%;
-}
-
-.index-grid img {
-  margin:0px 10px 10px 0px;
-}
-
-/* For jumbotron inline name display */
-
-.inline-header {
-	font-size: 4em;
-}
-
 /* Adjusting jumbtron padding */
 
 .jumbotron {
@@ -30,6 +14,12 @@
   margin-bottom: 10px;
   color: inherit;
   background-color: #eee;
+}
+
+/* Jumbotron h1 smaller */
+.jumbotron h1 {
+  display: inline;
+  font-size: 4.5em;
 }
 
 /* Increase top & bottom margin */
@@ -40,24 +30,44 @@
   font-weight: 200;
 }
 
-/* For unMon logo in header bar */
+/* Scale images in navbar */
 
-.brand-img-sm {
-	max-height: 35px;
+.navbar img {
+	max-height: 150%;
 	padding: 0px 0px 0px 25px;
 	display:inline;
 }
 
 /* Changes to the navigation bar */
 
-.custom-nav {
+.navbar {
 	background-color: #FFF;
 	height:70px;
-    box-shadow: 0 5px 8px rgba(0, 0, 0, .05);
+  box-shadow: 0 5px 8px rgba(0, 0, 0, .05);
 }
 
 .navbar-brand {
   font-size: 26px;
+}
+
+.navbar-brand a > hover {
+  background-color: #FFF;
+}
+/* Logout dropdown menu */
+
+.logout {
+    margin-top:60px; /* This amount is avatar margin + img height */
+}
+
+/* Make corners square */
+.dropdown-menu {
+  border-radius: 0px;
+  margin-top:60px; 
+}
+
+.avatar {
+  width: 75px;
+  margin-top:10px;
 }
 
 /* No hover bg on nav */
@@ -69,6 +79,7 @@
 }
 
 /* Line height change */
+
 .navbar-nav > li > a {
   padding-top: 10px;
   padding-bottom: 10px;
@@ -82,72 +93,5 @@
 /* Lower button */
 
 .sign-in {
-	margin-top:15px;
-
-}
-
-/* Change panel border color from #ddd */
-
-.panel-default {
-  border-color: #eee;
-}
-.panel-default > .panel-heading {
-  color: #333;
-  background-color: #eee;
-  border-color: #eee;
-}
-.panel-default > .panel-heading + .panel-collapse .panel-body {
-  border-top-color: #eee;
-}
-.panel-default > .panel-footer + .panel-collapse .panel-body {
-  border-bottom-color: #eee;
-}
-
-/* Change list-group border and hover background color */
-
-.list-group {
-  padding-left: 0;
-  margin-bottom: 20px;
-}
-.list-group-item {
-  position: relative;
-  display: block;
-  padding: 10px 15px;
-  margin-bottom: -1px;
-  background-color: #fff;
-  border: 1px solid #eee; // ddd;
-}
-.list-group-item:first-child {
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-}
-.list-group-item:last-child {
-  margin-bottom: 0;
-  border-bottom-right-radius: 4px;
-  border-bottom-left-radius: 4px;
-}
-.list-group-item > .badge {
-  float: right;
-}
-.list-group-item > .badge + .badge {
-  margin-right: 5px;
-}
-a.list-group-item {
-  color: #8ba870; // 555;
-}
-a.list-group-item .list-group-item-heading {
-  color: #333;
-}
-a.list-group-item:hover,
-a.list-group-item:focus {
-  text-decoration: none;
-  background-color: #eee; // f5f5f5;
-}
-a.list-group-item.active,
-a.list-group-item.active:hover,
-a.list-group-item.active:focus {
-  z-index: 2;
-  color: #fff;
-  background-color: #8ba870;
-  border-color: #8ba870;
+  margin-top:15px;
 }
