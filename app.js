@@ -66,6 +66,7 @@ $(function(){
     },
 
     person: function(part){
+      this.shrinkMain();
       var profile = new Profile({ model: crew.findWhere({path: '/people/' + part}) });
       var sideNav = new SideNav({ collection: crew });
     },
@@ -95,6 +96,9 @@ $(function(){
     peer: function(part){
       var profile = new Profile({ model: peers.findWhere({path: '/peers/' + part}) });
       var sideNav = new SideNav({ collection: peers });
+    },
+    shrinkMain: function(){
+      $('main-column').removeClass('col-sm-12').addClass('col-xs-12 col-sm-9');
     }
   });
 
@@ -199,7 +203,6 @@ $(function(){
       router.navigate(event.target.attributes.href.value, { trigger: true });
     }
   });
-
 
   var Profile = Backbone.View.extend({
     el: '#profile',

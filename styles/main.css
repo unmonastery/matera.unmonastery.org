@@ -7,6 +7,16 @@
          url('../vendor/fonts/Monda-Regular.svg#svgFontName') format('svg'); /* Legacy iOS */
 }
 
+/* Index grid */
+
+.index-container {
+  width: 100%;
+}
+
+.index-grid img {
+  margin:0px 10px 10px 0px;
+}
+
 /* For jumbotron inline name display */
 
 .inline-header {
