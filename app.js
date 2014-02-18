@@ -48,6 +48,8 @@ $(function(){
 
   var peers = new Peers(data.peers);
 
+  var partials = new Array('#profile','#sideNav');
+
   var Router = Backbone.Router.extend({
     routes: {
       '': 'root',
@@ -63,6 +65,8 @@ $(function(){
 
     people: function(){
       var index = new Index({ collection: crew });
+      this.stretchIndex();
+      // this.clearPartials(); **not working yet**
     },
 
     person: function(part){
@@ -73,33 +77,49 @@ $(function(){
 
     challenges: function(){
       var index = new Index({ collection: challenges });
+      this.stretchIndex();
     },
 
     challenge: function(part){
       var profile = new Profile({ model: challenges.findWhere({path: '/challenges/' + part}) });
       var sideNav = new SideNav({ collection: challenges });
+      this.removeIndex();
     },
 
     projects: function(){
       var index = new Index({ collection: projects });
+      this.stretchIndex();
     },
 
     project: function(part){
       var profile = new Profile({ model: projects.findWhere({path: '/projects/' + part}) });
       var sideNav = new SideNav({ collection: projects });
+      this.removeIndex();
     },
 
     peers: function(){
       var index = new Index({ collection: peers });
+      this.stretchIndex();
     },
 
     peer: function(part){
       var profile = new Profile({ model: peers.findWhere({path: '/peers/' + part}) });
       var sideNav = new SideNav({ collection: peers });
+      this.removeIndex();
     },
     removeIndex: function(){
       $('.main-column').removeClass('col-sm-12').addClass('col-xs-12 col-sm-9');
       $('#index').empty();
+    },
+    stretchIndex: function(){
+      $('.main-column').removeClass('col-xs-12 col-sm-9').addClass('col-sm-12');
+      this.clearPartials();
+    },
+    clearPartials: function(){
+      $('#profile').empty();
+      $('#sideNav').empty();
+      /* for (var i=0;i<partials.length;i++)
+            $([i]).empty(); *** Not working yet BUT not necessary if we only have one profile template for people, peers, etc. *** */
     }
   });
 
