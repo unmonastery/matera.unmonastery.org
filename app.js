@@ -68,7 +68,7 @@ $(function(){
     person: function(part){
       var profile = new Profile({ model: crew.findWhere({path: '/people/' + part}) });
       var sideNav = new SideNav({ collection: crew });
-      this.shrinkMain();
+      this.removeIndex();
     },
 
     challenges: function(){
@@ -97,8 +97,9 @@ $(function(){
       var profile = new Profile({ model: peers.findWhere({path: '/peers/' + part}) });
       var sideNav = new SideNav({ collection: peers });
     },
-    shrinkMain: function(){
-      $('main-column').removeClass('col-sm-12').addClass('col-xs-12 col-sm-9');
+    removeIndex: function(){
+      $('.main-column').removeClass('col-sm-12').addClass('col-xs-12 col-sm-9');
+      $('#index').empty();
     }
   });
 
@@ -118,7 +119,7 @@ $(function(){
       if(event.target.attributes.href){
         router.navigate(event.target.attributes.href.value, { trigger: true });
       } else {
-        rotuer.navigate('', { trigger: true });
+        router.navigate('', { trigger: true });
       }
     }
   });
