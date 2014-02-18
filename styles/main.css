@@ -7,6 +7,23 @@
          url('../vendor/fonts/Monda-Regular.svg#svgFontName') format('svg'); /* Legacy iOS */
 }
 
+/* Add margin to index grid and avatars */
+
+.index-grid {
+  margin-bottom: 15px;
+  padding-right: 15px;
+  white-space: nowrap;
+}
+
+.index-grid img {
+  margin-right:10px;
+}
+
+.main-column {
+  
+}
+
+
 /* Adjusting jumbtron padding */
 
 .jumbotron {
@@ -17,6 +34,7 @@
 }
 
 /* Jumbotron h1 smaller */
+
 .jumbotron h1 {
   display: inline;
   font-size: 4.5em;

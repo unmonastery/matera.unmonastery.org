@@ -66,9 +66,9 @@ $(function(){
     },
 
     person: function(part){
-      this.shrinkMain();
       var profile = new Profile({ model: crew.findWhere({path: '/people/' + part}) });
       var sideNav = new SideNav({ collection: crew });
+      this.shrinkMain();
     },
 
     challenges: function(){
