@@ -19,10 +19,9 @@
   margin-right:10px;
 }
 
-.main-column {
-
+hr {
+  margin-bottom: 0px; // 20
 }
-
 
 /* Adjusting jumbtron padding */
 
