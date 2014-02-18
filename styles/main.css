@@ -17,6 +17,8 @@
 
 .index-grid img {
   margin-right:10px;
+  height:80px;
+  width:80px;
 }
 
 hr {
@@ -91,6 +93,7 @@ hr {
 /* Set avatar size in profile to prevent resizing */
 #profile img {
   height:80px;
+  width: 80px;
 }
 
 /* No hover bg on nav */
