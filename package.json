@@ -12,7 +12,9 @@
     "cors": "~2.1.1",
     "express": "~3.4.8",
     "superagent": "~0.16.0",
-    "js-md5": "~0.1.1"
+    "js-md5": "~0.1.1",
+    "levelgraph": "~0.8.1",
+    "levelgraph-jsonld": "git://github.com/mcollina/levelgraph-jsonld"
   },
   "devDependencies": {
     "grunt": "~0.4.2",

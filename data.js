@@ -33,12 +33,13 @@ var data = {
       "type": "Person"
     },
     {
+      "@id": "people/elf-pavlik",
+      "@type": "Person",
       "name": "elf Pavlik",
       "path": "/people/elf-pavlik",
       "email": "perpetual-tripper@wwelves.org",
       "description": "A brief tagline in any way you imagine it!",
-      "md5email": "f8a7b786c9f7b74164c6503173e92495",
-      "type": "Person"
+      "md5email": "f8a7b786c9f7b74164c6503173e92495"
     },
     {
       "name": "Katalin Hausner",
