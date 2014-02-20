@@ -8,7 +8,8 @@ website of unMonastery
 ```shell
 $ bower install
 $ npm install
-$ grunt
+$ grunt import
 
-open http://localhost:8080 in your browser
+$ grunt
 ```
+open http://localhost:8080 in your browser
