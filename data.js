@@ -58,13 +58,7 @@ var data = {
       "type": "Person"
     }
   ],
-  challenges: [
-    {
-      "name": "Cross-generation spaces",
-      "path": "/challenges/cross-generation-spaces",
-      "type": "Challange"
-    }
-  ],
+
   projects: [
     {
       "name": "Ninux Matera",
@@ -86,12 +80,5 @@ var data = {
       "path": "/projects/social-dramaturgy",
       "type": "Project"
     },
-  ],
-  peers: [
-    {
-      "name": "Casa Netural",
-      "path": "/peers/casa-netural",
-      "type": "Organization"
-    }
   ]
 };

@@ -31,15 +31,6 @@ $(function(){
 
   var crew = new Crew(data.people);
 
-  var Challenge = Backbone.Model.extend({
-  });
-
-  var Challenges = Backbone.Collection.extend({
-    model: Challenge
-  });
-
-  var challenges = new Challenges(data.challenges);
-
   var Project = Backbone.Model.extend({
   });
 
@@ -49,26 +40,13 @@ $(function(){
 
   var projects = new Projects(data.projects);
 
-  var Peer = Backbone.Model.extend({
-  });
-
-  var Peers = Backbone.Collection.extend({
-    model: Peer
-  });
-
-  var peers = new Peers(data.peers);
-
   var Router = Backbone.Router.extend({
     routes: {
       '': 'root',
       'people': 'people',
       'people/:part': 'person',
-      'challenges': 'challenges',
-      'challenges/:part': 'challenge',
       'projects': 'projects',
-      'projects/:part': 'project',
-      'peers': 'peers',
-      'peers/:part': 'peer'
+      'projects/:part': 'project'
     },
 
     people: function(){
@@ -81,29 +59,14 @@ $(function(){
       });
     },
 
-    challenges: function(){
-      var sideNav = new SideNav({ collection: challenges });
-    },
-
-    challenge: function(part){
-      var profile = new Profile({ model: challenges.findWhere({path: '/challenges/' + part}) });
-    },
-
     projects: function(){
       var sideNav = new SideNav({ collection: projects });
     },
 
     project: function(part){
       var profile = new Profile({ model: projects.findWhere({path: '/projects/' + part}) });
-    },
-
-    peers: function(){
-      var sideNav = new SideNav({ collection: peers });
-    },
-
-    peer: function(part){
-      var profile = new Profile({ model: peers.findWhere({path: '/peers/' + part}) });
     }
+
   });
 
   Backbone.history.start({ pushState: true });
