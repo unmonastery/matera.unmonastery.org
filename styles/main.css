@@ -44,7 +44,7 @@ hr {
 
 /* Increase top & bottom margin */
 
-.jumbotron p {
+.jumbotron div[property="description"] {
   margin: 15px 0px 15px 0px;
   font-size: 21px;
   font-weight: 200;
