@@ -1,9 +1,12 @@
+var fs = require('fs');
 var http = require('http');
 var express = require('express');
 var cors = require('cors');
 var request = require('superagent');
 var lg = require('levelgraph');
 var lgJSONLD = require('levelgraph-jsonld');
+var _ = require('lodash');
+var async = require('async');
 
 var db = lgJSONLD(lg('dev.ldb'));
 
@@ -39,10 +42,7 @@ daemon.post('/auth/logout', function(req, res){
   res.send(200);
 });
 
-var context = {
-  '@vocab': 'http://schema.org/',
-  '@base': 'https://unmonastery.net/'
-};
+var context = JSON.parse(fs.readFileSync('unmonastery.jsonld').toString());
 
 function savePerson (req, res){
   var person = req.body;
@@ -62,14 +62,43 @@ function savePerson (req, res){
   }
 }
 
+// FIXME !!!DRY!!!
 daemon.get('/people', function(req, res){
+  db.get({
+    predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+    object: 'http://schema.org/Person'
+  }, function(err, triples){
+    async.map(triples, function(triple, callback){
+      db.jsonld.get(triple.subject, context, function(error, obj){
+        callback(error, obj);
+      }.bind(this));
+    }, function(error, people){
+      if(error) return console.log(error);
+      res.json(people);
+    });
+  });
+});
+
+daemon.get('/projects', function(req, res){
+  db.get({
+    predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+    object: 'http://schema.org/Organization'
+  }, function(err, triples){
+    async.map(triples, function(triple, callback){
+      db.jsonld.get(triple.subject, context, function(error, obj){
+        callback(error, obj);
+      }.bind(this));
+    }, function(error, people){
+      if(error) return console.log(error);
+      res.json(people);
+    });
+  });
 });
 
 daemon.get('/people/:part', function(req, res){
-  var id = 'https://unmonastery.net/people/' + req.params.part;
+  var id = 'http://unmonastery.net/people/' + req.params.part;
   console.log(id);
   db.jsonld.get(id, { '@context': context }, function(err, obj){
-    console.log(obj);
     res.json(obj);
   });
 });

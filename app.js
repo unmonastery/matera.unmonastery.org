@@ -1,7 +1,7 @@
 $(function(){
 
   var Person = Backbone.Model.extend({
-    id: '@id',
+    idAttribute: '@id',
 
     initialize: function(){
       _.bindAll(this, 'setAvatar');
@@ -18,29 +18,62 @@ $(function(){
 
     //FIXME override Backbone.sync
     save: function(){
-      superagent.put('http://localhost:9000' + this.attributes.path)
+      superagent.put('http://localhost:9000/' + this.id)
       .withCredentials()
       .send(this.toJSON())
       .end(function(response){ console.log('UPDATE: ', response); });
     }
-
   });
 
   // FIXME !!!DRY!!!
   var Crew = Backbone.Collection.extend({
-    model: Person
+    model: Person,
+    url: 'http://localhost:9000/people',
+
+    initialize: function(){
+      this.on('reset', function(){ console.log('People loaded!'); });
+      this.fetch({ reset: true });
+    }
   });
 
-  var crew = new Crew(data.people);
+  var crew = new Crew();
 
   var Project = Backbone.Model.extend({
+    idAttribute: '@id',
+
+    initialize: function(){
+      _.bindAll(this, 'setAvatar');
+      this.on('change:description', this.save);
+      this.on('change:email', this.setAvatar);
+      if(this.get('email')){
+        this.setAvatar();
+      }
+    },
+
+    setAvatar: function(){
+      this.set('image', 'http://gravatar.com/avatar/' + md5(this.get('email')));
+    },
+
+    //FIXME override Backbone.sync
+    save: function(){
+      superagent.put('http://localhost:9000/' + this.id)
+      .withCredentials()
+      .send(this.toJSON())
+      .end(function(response){ console.log('UPDATE: ', response); });
+    }
   });
 
   var Projects = Backbone.Collection.extend({
-    model: Project
+    model: Project,
+    url: 'http://localhost:9000/projects',
+
+    initialize: function(){
+      this.on('reset', function(){ console.log('People loaded!'); });
+      this.fetch({ reset: true });
+    }
   });
 
-  var projects = new Projects(data.projects);
+  var projects = new Projects();
 
   var Router = Backbone.Router.extend({
     routes: {
@@ -57,7 +90,7 @@ $(function(){
 
     person: function(part){
       var profile = new Profile({
-        model: crew.findWhere({path: '/people/' + part})
+        model: crew.findWhere({'@id': 'people/' + part})
       });
     },
 
@@ -66,7 +99,7 @@ $(function(){
     },
 
     project: function(part){
-      var profile = new Profile({ model: projects.findWhere({path: '/projects/' + part}) });
+      var profile = new Profile({ model: projects.findWhere({'@id': 'projects/' + part}) });
     }
 
   });
@@ -133,6 +166,7 @@ $(function(){
       this.$el.html('');
       this.collection.each(function(resource){
         var data = resource.toJSON();
+        data.path = data["@id"]; //FIXME hbs seems not to handle @id / @type
         this.$el.append(JST.nameLink(data));
       }.bind(this));
     },

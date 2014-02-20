@@ -13,7 +13,9 @@
     "express": "~3.4.8",
     "superagent": "~0.16.0",
     "levelgraph": "~0.8.1",
-    "levelgraph-jsonld": "git://github.com/mcollina/levelgraph-jsonld"
+    "levelgraph-jsonld": "git://github.com/mcollina/levelgraph-jsonld",
+    "lodash": "~2.4.1",
+    "async": "~0.2.10"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
