@@ -13,7 +13,7 @@ module.exports = function(grunt){
     less : {
       development: {
         files: {
-          "styles/less-compile.css": "styles/variables-override.less"
+          "tmp/less-compile.css": "styles/variables-override.less"
         }
       }
     },
@@ -24,7 +24,7 @@ module.exports = function(grunt){
           processName: function(filePath){ return filePath.split('/')[1].replace('.hbs', ''); }
         },
         files: {
-          'templates.js': 'templates/*.hbs'
+          'tmp/templates.js': 'templates/*.hbs'
         }
       }
     },
