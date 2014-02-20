@@ -2,7 +2,6 @@ var http = require('http');
 var express = require('express');
 var cors = require('cors');
 var request = require('superagent');
-var md5 = require('js-md5');
 var lg = require('levelgraph');
 var lgJSONLD = require('levelgraph-jsonld');
 
@@ -22,8 +21,6 @@ daemon.post('/auth/login', function(req, res){
       audience: 'http://localhost:8080'
     })
     .end(function(vres){ //FIXME extract into function
-      // generate md5 hash for gravatar
-      vres.body.md5email = md5(vres.body.email);
 
       // start session
       req.session.agent = vres.body;

@@ -1,17 +1,19 @@
 $(function(){
 
   var Person = Backbone.Model.extend({
+    id: '@id',
+
     initialize: function(){
       _.bindAll(this, 'setAvatar');
       this.on('change:description', this.save);
-      this.on('change:md5email', this.setAvatar);
-      if(this.get('md5email')){
+      this.on('change:email', this.setAvatar);
+      if(this.get('email')){
         this.setAvatar();
       }
     },
 
     setAvatar: function(){
-      this.set('avatar', 'http://gravatar.com/avatar/' + this.get('md5email'));
+      this.set('image', 'http://gravatar.com/avatar/' + md5(this.get('email')));
     },
 
     //FIXME override Backbone.sync
@@ -130,7 +132,8 @@ $(function(){
     render: function(){
       this.$el.html('');
       this.collection.each(function(resource){
-        this.$el.append(JST.nameLink(resource.toJSON()));
+        var data = resource.toJSON();
+        this.$el.append(JST.nameLink(data));
       }.bind(this));
     },
 
