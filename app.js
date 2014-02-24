@@ -1,5 +1,9 @@
 $(function(){
 
+  Handlebars.registerHelper('md', function(content){
+    return markdown.toHTML(content);
+  });
+
   var Person = Backbone.Model.extend({
     idAttribute: '@id',
 
@@ -246,9 +250,22 @@ $(function(){
       this.$el.html(partial);
       if(this.model.attributes.email === agent.attributes.email){
         var description = this.$el.find('[property=description]');
-        description.attr('contenteditable', true);
-        description.bind('blur', function(event, data){
-          this.model.set('description', event.target.innerHTML);
+        var editor = $('<textarea style="width: 100%; height: 12em;"></textarea>');
+        description.bind('click', function(event){
+          // ignore clicks on editor
+          if($(event.target)[0] === editor[0]){
+            return event.stopPropagation();
+          }
+          $(description).empty();
+          $(description).append(editor);
+          $(editor).val(this.model.get('description'));
+          $(editor).focus();
+        }.bind(this));
+        editor.bind('blur', function(){
+          var marked = editor.val();
+          this.model.set('description', marked);
+          $(editor).detach();
+          $(description).html(markdown.toHTML(marked));
         }.bind(this));
       }
     }
