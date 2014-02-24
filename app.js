@@ -245,9 +245,9 @@ $(function(){
       var partial = JST.profile(this.model.toJSON());
       this.$el.html(partial);
       if(this.model.attributes.email === agent.attributes.email){
-        var description = this.$el.find('[property=description]').hallo();
-        description.hallo();
-        description.bind('hallodeactivated', function(event, data){
+        var description = this.$el.find('[property=description]');
+        description.attr('contenteditable', true);
+        description.bind('blur', function(event, data){
           this.model.set('description', event.target.innerHTML);
         }.bind(this));
       }
