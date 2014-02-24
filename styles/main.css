@@ -73,6 +73,14 @@ hr {
 .navbar-brand a > hover {
   background-color: #FFF;
 }
+
+/* Format social media links */
+
+.social {
+  margin: 10px;
+  line-height: 50px;
+}
+
 /* Logout dropdown menu */
 
 .logout {
