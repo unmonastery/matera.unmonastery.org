@@ -74,11 +74,16 @@ hr {
   background-color: #FFF;
 }
 
-/* Format social media links */
+/* Format social media and language links */
 
 .social {
-  margin: 10px;
+  margin: 10px 15px 10px 10px;
   line-height: 50px;
+}
+
+.language {
+  margin: 10px 15px 10px 0px;
+  line-height: 45px;
 }
 
 /* Logout dropdown menu */
