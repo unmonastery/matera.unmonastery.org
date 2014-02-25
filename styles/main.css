@@ -98,6 +98,10 @@ hr {
   margin-top:10px;
 }
 
+.personal_avatar {
+  height: 70px;
+}
+
 /* Set avatar size in profile to prevent resizing */
 #profile img {
   height:80px;
