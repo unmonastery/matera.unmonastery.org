@@ -8,16 +8,34 @@ $(function(){
     idAttribute: '@id',
 
     initialize: function(){
-      _.bindAll(this, 'setAvatar');
+      _.bindAll(this, 'setAvatar', 'setOembed');
       this.on('change:description', this.save);
+      this.on('change:video', this.save);
+      this.on('change:video', this.setOembed);
       this.on('change:email', this.setAvatar);
       if(this.get('email')){
         this.setAvatar();
+      }
+      if(this.get('video')){
+        this.setOembed();
       }
     },
 
     setAvatar: function(){
       this.set('image', 'http://gravatar.com/avatar/' + md5(this.get('email')));
+    },
+
+    setOembed: function(){
+      if(this.get('video')){
+        superagent.post('http://localhost:9000/oembed')
+        .send({ url: this.get('video') })
+        .end(function(response){
+          var scaled = response.text.replace('width="1280"', 'width="640"').replace('height="720"', 'height="360"');
+          this.set('oembed', scaled);
+        }.bind(this));
+      } else {
+        this.unset('oembed');
+      }
     },
 
     //FIXME override Backbone.sync
@@ -242,6 +260,7 @@ $(function(){
 
     initialize: function(){
       _.bindAll(this, 'render');
+      this.model.on('change:oembed remove:oembed', this.render);
       this.render();
     },
 
@@ -249,6 +268,7 @@ $(function(){
       var partial = JST.profile(this.model.toJSON());
       this.$el.html(partial);
       if(this.model.attributes.email === agent.attributes.email){
+        // edit description
         var description = this.$el.find('[property=description]');
         var editor = $('<textarea style="width: 100%; height: 12em;"></textarea>');
         description.bind('click', function(event){
@@ -268,6 +288,17 @@ $(function(){
           $(description).html(markdown.toHTML(marked));
         }.bind(this));
       }
+      // edit video
+      var video = this.$el.find('.video');
+      video.attr('contenteditable', true);
+      video.bind('blur', function(){
+        var url = video.find('a').attr('href');
+        if(url){
+          this.model.set('video', url);
+        } else {
+          this.model.unset('video');
+        }
+      }.bind(this));
     }
   });
 

@@ -7,6 +7,7 @@ var lg = require('levelgraph');
 var lgJSONLD = require('levelgraph-jsonld');
 var _ = require('lodash');
 var async = require('async');
+var oembed = require('oembed-auto');
 
 var db = lgJSONLD(lg('dev.ldb'));
 
@@ -40,6 +41,13 @@ daemon.post('/auth/logout', function(req, res){
   console.log(req.session); //debug
   req.session = null;
   res.send(200);
+});
+
+daemon.post('/oembed', function(req, res){
+  oembed(req.body.url, function(err, data){
+    console.log(data.html);
+    res.end(data.html);
+  });
 });
 
 var context = JSON.parse(fs.readFileSync('unmonastery.jsonld').toString());

@@ -15,7 +15,8 @@
     "levelgraph": "~0.8.1",
     "levelgraph-jsonld": "git://github.com/mcollina/levelgraph-jsonld",
     "lodash": "~2.4.1",
-    "async": "~0.2.10"
+    "async": "~0.2.10",
+    "oembed-auto": "0.0.3"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
