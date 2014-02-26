@@ -1,7 +1,7 @@
 {
-  "name": "unmonastery.eu",
+  "name": "unmonastery.net",
   "version": "0.0.0",
-  "description": "unmonastery.eu ==============",
+  "description": "unmonastery.net ==============",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -133,8 +133,18 @@ hr {
 	padding-top:30px;
 }
 
+/* Landing page */
+
+.quote {
+  margin: 25px 40px 25px 40px;
+}
+
 /* Lower button */
 
 .sign-in {
   margin-top:15px;
+}
+
+footer {
+  color: #8ba870;
 }
