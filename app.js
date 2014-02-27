@@ -3,12 +3,15 @@ $(function(){
   window.lang = 'en';
 
   Handlebars.registerHelper('tmd', function(content){
-    console.log(lang, content);
     if(content[lang]) {
       return markdown.toHTML(content[lang]);
     } else {
       return 'no content yet :(';
     }
+  });
+
+  Handlebars.registerHelper('l', function(path){
+    return '/' + window.lang + '/' + path;
   });
 
   var Person = Backbone.Model.extend({
@@ -112,11 +115,15 @@ $(function(){
 
   var Router = Backbone.Router.extend({
     routes: {
-      '': 'root',
-      'people': 'people',
-      'people/:part': 'person',
-      'projects': 'projects',
-      'projects/:part': 'project'
+      ':lang': 'root',
+      ':lang/people': 'people',
+      ':lang/people/:part': 'person',
+      ':lang/projects': 'projects',
+      ':lang/projects/:part': 'project',
+    },
+
+    root: function(lang){
+      console.log('root', lang);
     },
 
     people: function(){
@@ -124,7 +131,7 @@ $(function(){
       this.stretchIndex();
     },
 
-    person: function(part){
+    person: function(lang, part){
       var profile = new Profile({ model: crew.findWhere({'@id': 'people/' + part}) });
       var sideNav = new SideNav({ collection: crew });
       this.removeIndex();
@@ -135,7 +142,7 @@ $(function(){
       this.stretchIndex();
     },
 
-    project: function(part){
+    project: function(lang, part){
       var profile = new Profile({ model: projects.findWhere({'@id': 'projects/' + part}) });
       var sideNav = new SideNav({ collection: projects });
       this.removeIndex();
@@ -163,12 +170,34 @@ $(function(){
   Backbone.history.start({ pushState: true });
 
   var router = new Router();
+  router.navigate(window.lang, { trigger: true });
 
   var Nav = Backbone.View.extend({
     el: '.nav',
 
+    structure: {
+      en: {
+        root: { url: '/en' },
+        people: { url: '/en/people', label: 'People'},
+        projects: { url: '/en/projects', label: 'Projects'}
+      },
+      it: {
+        root: { url: '/it' },
+        people: { url: '/it/people', label: '[IT]People'},
+        projects: { url: '/it/projects', label: '[IT]Projects'}
+      }
+    },
+
     events: {
       'click': 'navigate'
+    },
+
+    initialize: function(){
+      this.render();
+    },
+
+    render: function(){
+      this.$el.html(JST.nav(this.structure[window.lang]));
     },
 
     navigate: function(event){
@@ -182,6 +211,25 @@ $(function(){
   });
 
   var nav = new Nav();
+
+  var LangSwitch = Backbone.View.extend({
+    el: '.language',
+
+    events: {
+      'click': 'switch'
+    },
+
+    switch: function(event){
+      event.preventDefault();
+      var lang = $(event.target).attr('href');
+      console.log(lang);
+      window.lang = lang;
+      nav.render();
+      router.navigate(lang);
+    }
+  });
+
+  var langSwitch = new LangSwitch();
 
   var AgentMenu = Backbone.View.extend({
     el: '#agentMenu',
