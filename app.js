@@ -287,23 +287,24 @@ $(function(){
           $(editor).detach();
           $(description).html(markdown.toHTML(marked));
         }.bind(this));
-      }
-      // edit video
-      var video = this.$el.find('.video');
-      video.attr('contenteditable', true);
-      video.bind('blur', function(){
-        var url = video.find('a').attr('href');
-        if(url){
-          this.model.set('video', url);
-        } else {
-          url = video.html().replace(/^\s+|\s+$/g, '').replace(/^<.*>|<.*>$/g, '');
-          if(url.match(/^http[s]*:\/\//)){
+
+        // edit video
+        var video = this.$el.find('.video');
+        video.attr('contenteditable', true);
+        video.bind('blur', function(){
+          var url = video.find('a').attr('href');
+          if(url){
             this.model.set('video', url);
           } else {
-            this.model.unset('video');
+            url = video.html().replace(/^\s+|\s+$/g, '').replace(/^<.*>|<.*>$/g, '');
+            if(url.match(/^http[s]*:\/\//)){
+              this.model.set('video', url);
+            } else {
+              this.model.unset('video');
+            }
           }
-        }
-      }.bind(this));
+        }.bind(this));
+      }
     }
   });
 
