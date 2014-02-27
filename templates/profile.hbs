@@ -1,7 +1,9 @@
 <div class="jumbotron" typeof={{type}}>
   <img class="img-thumbnail" property="image" src="{{image}}">
   <h1 property="name">{{name}}</h1>
-  <div property="description">{{{md description}}}</div>
+  <div property="description">
+    {{{tmd description}}}
+  </div>
   {{#if oembed}}
   <div class="oembed">{{{oembed}}}</div>
   {{/if}}

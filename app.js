@@ -1,11 +1,22 @@
 $(function(){
 
-  Handlebars.registerHelper('md', function(content){
-    return markdown.toHTML(content);
+  window.lang = 'en';
+
+  Handlebars.registerHelper('tmd', function(content){
+    console.log(lang, content);
+    if(content[lang]) {
+      return markdown.toHTML(content[lang]);
+    } else {
+      return 'no content yet :(';
+    }
   });
 
   var Person = Backbone.Model.extend({
     idAttribute: '@id',
+
+    defaults: {
+      description: {}
+    },
 
     initialize: function(){
       _.bindAll(this, 'setAvatar', 'setOembed');
@@ -278,12 +289,13 @@ $(function(){
           }
           $(description).empty();
           $(description).append(editor);
-          $(editor).val(this.model.get('description'));
+          $(editor).val(this.model.get('description')[lang]);
           $(editor).focus();
         }.bind(this));
         editor.bind('blur', function(){
           var marked = editor.val();
-          this.model.set('description', marked);
+          this.model.get('description')[lang] = marked;
+          this.model.trigger('change:description');
           $(editor).detach();
           $(description).html(markdown.toHTML(marked));
         }.bind(this));

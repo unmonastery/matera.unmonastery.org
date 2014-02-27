@@ -1,4 +1,5 @@
 {
   "@vocab": "http://schema.org/",
-  "@base": "http://unmonastery.net/"
+  "@base": "http://unmonastery.net/",
+  "description": { "@container": "@language" }
 }
