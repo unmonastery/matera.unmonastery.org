@@ -296,7 +296,12 @@ $(function(){
         if(url){
           this.model.set('video', url);
         } else {
-          this.model.unset('video');
+          url = video.html().replace(/^\s+|\s+$/g, '').replace(/^<.*>|<.*>$/g, '');
+          if(url.match(/^http[s]*:\/\//)){
+            this.model.set('video', url);
+          } else {
+            this.model.unset('video');
+          }
         }
       }.bind(this));
     }
