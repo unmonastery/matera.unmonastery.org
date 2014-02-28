@@ -29,22 +29,16 @@ daemon.post('/auth/login', function(req, res){
       req.session.agent = vres.body;
 
       res.json(vres.body);
-
-      // debug
-      console.log(req.session);
     });
 });
 
 daemon.post('/auth/logout', function(req, res){
-  console.log(req.body.assertion); //FIXME decide if needs assertion
-  console.log(req.session); //debug
   req.session = null;
   res.send(200);
 });
 
 daemon.post('/oembed', function(req, res){
   oembed(req.body.url, function(err, data){
-    console.log(data.html);
     res.end(data.html);
   });
 });
@@ -59,12 +53,10 @@ function savePerson (req, res){
       if(err) return console.error(err);
       db.jsonld.put(person, function(err){
         if(err) return console.error(err);
-        console.log('SAVED:', person);
         res.send(200);
       });
     });
   } else {
-    console.log('REJECTED:', req.body);
     res.send(403);
   }
 }
@@ -104,7 +96,6 @@ daemon.get('/projects', function(req, res){
 
 daemon.get('/people/:part', function(req, res){
   var id = 'http://unmonastery.net/people/' + req.params.part;
-  console.log(id);
   db.jsonld.get(id, { '@context': context }, function(err, obj){
     res.json(obj);
   });
