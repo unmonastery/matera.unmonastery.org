@@ -77,6 +77,10 @@ $(function(){
   var Project = Backbone.Model.extend({
     idAttribute: '@id',
 
+    defaults: {
+      description: {}
+    },
+
     initialize: function(){
       _.bindAll(this, 'setAvatar');
       this.on('change:description', this.save);
@@ -183,8 +187,8 @@ $(function(){
       },
       it: {
         root: { url: '/it' },
-        people: { url: '/it/people', label: '[IT]People'},
-        projects: { url: '/it/projects', label: '[IT]Projects'}
+        people: { url: '/it/people', label: 'Persone'},
+        projects: { url: '/it/projects', label: 'Progetti'}
       }
     },
 
@@ -212,6 +216,16 @@ $(function(){
 
   var nav = new Nav();
 
+  function getLangPath(lang){
+    var pathElements = Backbone.history.location.pathname.split('/');
+    pathElements[1] = lang;
+    return pathElements.join('/');
+  }
+
+  function getLang(href){
+    return href.split('/')[1];
+  }
+
   var LangSwitch = Backbone.View.extend({
     el: '.language',
 
@@ -219,13 +233,27 @@ $(function(){
       'click': 'switch'
     },
 
+    initialize: function(){
+      _.bindAll(this, 'render');
+      this.render();
+      router.on('route', this.render);
+    },
+
+    render: function(){
+      console.log('langswitch render');
+      this.$el.html(JST.langSwitch({
+        en: getLangPath('en'),
+        it: getLangPath('it')
+      }));
+    },
+
     switch: function(event){
       event.preventDefault();
-      var lang = $(event.target).attr('href');
-      console.log(lang);
+      var lang = getLang($(event.target).attr('href'));
       window.lang = lang;
       nav.render();
-      router.navigate(lang);
+      console.log(getLangPath(lang).replace(/^\//, ''));
+      router.navigate(getLangPath(lang).replace(/^\//, ''), { trigger: true });
     }
   });
 

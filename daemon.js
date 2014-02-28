@@ -17,7 +17,6 @@ daemon.use(express.bodyParser());
 daemon.use(express.cookieParser('Thalugnesfit0drowAbJaskEbyocyut'));
 daemon.use(express.cookieSession({ secret: 'RovFosithyltyojdykCadWysdurt2onn' })); //FIXME CSRF
 
-
 daemon.post('/auth/login', function(req, res){
   request.post('https://verifier.login.persona.org/verify')
     .send({
