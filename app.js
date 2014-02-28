@@ -145,7 +145,6 @@ $(function(){
     },
 
     root: function(lang){
-      console.log('root', lang);
     },
 
     people: function(){
@@ -258,7 +257,6 @@ $(function(){
     },
 
     render: function(){
-      console.log('langswitch render');
       this.$el.html(JST.langSwitch({
         en: getLangPath('en'),
         it: getLangPath('it')
@@ -270,7 +268,6 @@ $(function(){
       var lang = getLang($(event.target).attr('href'));
       window.lang = lang;
       nav.render();
-      console.log(getLangPath(lang).replace(/^\//, ''));
       router.navigate(getLangPath(lang).replace(/^\//, ''), { trigger: true });
     }
   });
@@ -374,7 +371,6 @@ $(function(){
       this.$el.html(partial);
       if(this.model.get('email') === agent.get('email') ||
          this.model.get('founder') === agent.get('@id')) { //FIXME support for multiple founders
-        console.log(agent.get('@id'), this.model.get('founder'));
         // edit description
         var description = this.$el.find('[property=description]');
         var editor = $('<textarea style="width: 100%; height: 12em;"></textarea>');
