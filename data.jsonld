@@ -45,24 +45,28 @@
     "@id": "projects/unguide",
     "@type": "Organization",
     "name": "unGuide",
-    "email": "unguide@unmonastery.net"
+    "email": "unguide@unmonastery.net",
+    "founder": "people/katalin-hausel"
   },
   {
     "@id": "projects/ninux",
     "@type": "Organization",
     "name": "Ninux Matera",
-    "email": "ninux-matera@unmonastery.net"
+    "email": "ninux-matera@unmonastery.net",
+    "founder": "people/elf-pavlik"
   },
   {
     "@id": "projects/solar-tracker",
     "@type": "Organization",
     "name": "Solar Tracker",
-    "email": "solar-tracker@unmonastery.net"
+    "email": "solar-tracker@unmonastery.net",
+    "founder": "people/marc-schneider"
   },
   {
     "@id": "projects/community-interface",
     "@type": "Organization",
     "name": "Community Interface",
-    "email": "community-interface@unmonastery.net"
+    "email": "community-interface@unmonastery.net",
+    "founder": "people/cristiano-siri"
   }
 ]

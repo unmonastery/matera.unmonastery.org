@@ -82,16 +82,34 @@ $(function(){
     },
 
     initialize: function(){
-      _.bindAll(this, 'setAvatar');
+      _.bindAll(this, 'setAvatar', 'setOembed');
       this.on('change:description', this.save);
       this.on('change:email', this.setAvatar);
+      this.on('change:video', this.save);
+      this.on('change:video', this.setOembed);
       if(this.get('email')){
         this.setAvatar();
+      }
+      if(this.get('video')){
+        this.setOembed();
       }
     },
 
     setAvatar: function(){
       this.set('image', 'http://gravatar.com/avatar/' + md5(this.get('email')));
+    },
+
+    setOembed: function(){
+      if(this.get('video')){
+        superagent.post('http://localhost:9000/oembed')
+        .send({ url: this.get('video') })
+        .end(function(response){
+          var scaled = response.text.replace('width="1280"', 'width="640"').replace('height="720"', 'height="360"');
+          this.set('oembed', scaled);
+        }.bind(this));
+      } else {
+        this.unset('oembed');
+      }
     },
 
     //FIXME override Backbone.sync
@@ -354,7 +372,9 @@ $(function(){
     render: function(){
       var partial = JST.profile(this.model.toJSON());
       this.$el.html(partial);
-      if(this.model.attributes.email === agent.attributes.email){
+      if(this.model.get('email') === agent.get('email') ||
+         this.model.get('founder') === agent.get('@id')) { //FIXME support for multiple founders
+        console.log(agent.get('@id'), this.model.get('founder'));
         // edit description
         var description = this.$el.find('[property=description]');
         var editor = $('<textarea style="width: 100%; height: 12em;"></textarea>');
@@ -403,11 +423,11 @@ $(function(){
   window.un = {
     agent: agent,
     crew: crew,
+    projects: projects,
     router: router
   };
 
   var login = function(assertion){
-    agent.assertion = assertion;
     superagent.post('http://localhost:9000/auth/login')
     .withCredentials()
     .send({ assertion: assertion })
@@ -416,6 +436,10 @@ $(function(){
       console.log('Persona.onlogin()', data);
       agent.set(data);
       agent.set('authenticated', true);
+      var crewMember = crew.findWhere({ email: agent.get('email') });
+      if(crewMember){
+        agent.set('@id', crewMember.get('@id'));
+      }
     });
   };
 
@@ -423,7 +447,6 @@ $(function(){
     // FIXME decide if needs to sent assertion!
     superagent.post('http://localhost:9000/auth/logout')
     .withCredentials()
-    .send({ assertion: agent.assertion })
     .end(function(response){
       console.log('Persona.onlogout()', response);
       agent.set('authenticated', false);
