@@ -14,7 +14,7 @@
     "express": "~3.4.8",
     "superagent": "~0.16.0",
     "levelgraph": "~0.8.1",
-    "levelgraph-jsonld": "git://github.com/elf-pavlik/levelgraph-jsonld.git#unmon",
+    "levelgraph-jsonld": "~0.3.1",
     "lodash": "~2.4.1",
     "async": "~0.2.10",
     "oembed-auto": "0.0.3"
