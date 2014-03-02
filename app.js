@@ -61,13 +61,18 @@ $(function(){
     }
   });
 
+  var router;
+
   // FIXME !!!DRY!!!
   var Crew = Backbone.Collection.extend({
     model: Person,
     url: 'http://localhost:9000/people',
 
     initialize: function(){
-      this.on('reset', function(){ console.log('People loaded!'); });
+      this.on('reset', function(){
+        console.log('People loaded!');
+        router.refresh();
+      });
       this.fetch({ reset: true });
     }
   });
@@ -126,7 +131,10 @@ $(function(){
     url: 'http://localhost:9000/projects',
 
     initialize: function(){
-      this.on('reset', function(){ console.log('People loaded!'); });
+      this.on('reset', function(){
+        console.log('People loaded!');
+        router.refresh();
+      });
       this.fetch({ reset: true });
     }
   });
@@ -134,6 +142,14 @@ $(function(){
   var projects = new Projects();
 
   var partials = new Array('#profile','#sideNav');
+
+  _.extend(Backbone.Router.prototype,{
+    refresh: function() {
+      var _tmp = Backbone.history.fragment;
+      this.navigate( _tmp + (new Date()).getTime() );
+      this.navigate( _tmp, { trigger:true } );
+    }
+  });
 
   var Router = Backbone.Router.extend({
     routes: {
@@ -190,8 +206,7 @@ $(function(){
 
   Backbone.history.start({ pushState: true });
 
-  var router = new Router();
-  router.navigate(window.lang, { trigger: true });
+  router = new Router();
 
   var Nav = Backbone.View.extend({
     el: '.nav',
@@ -333,6 +348,7 @@ $(function(){
 
     initialize: function(){
       _.bindAll(this, 'render');
+      this.collection.on('reset', this.render);
       this.render();
     },
 
@@ -362,8 +378,10 @@ $(function(){
 
     initialize: function(){
       _.bindAll(this, 'render');
-      this.model.on('change:oembed remove:oembed', this.render);
-      this.render();
+      if(this.model){ // FIXME sometimes called before loading data
+        this.model.on('change:oembed remove:oembed', this.render);
+        this.render();
+      }
     },
 
     render: function(){
@@ -417,6 +435,9 @@ $(function(){
 
   var agent = new Person();
   var agentMenu = new AgentMenu({ model: agent });
+
+  // for visits to some path
+  router.refresh();
 
   // debug
   window.un = {
