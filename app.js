@@ -389,7 +389,9 @@ $(function(){
           this.model.get('description')[lang] = marked;
           this.model.trigger('change:description');
           $(editor).detach();
-          $(description).html(markdown.toHTML(marked));
+          var rendered = markdown.toHTML(marked);
+          $(description).html(rendered);
+          if (rendered.replace(/^\s+|\s+$/g, '') === '') this.render();
         }.bind(this));
 
         // edit video
@@ -405,6 +407,7 @@ $(function(){
               this.model.set('video', url);
             } else {
               this.model.unset('video');
+              this.render();
             }
           }
         }.bind(this));
