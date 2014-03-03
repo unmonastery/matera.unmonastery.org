@@ -454,8 +454,12 @@ $(function(){
   var agent = new Person();
   var agentMenu = new AgentMenu({ model: agent });
 
-  // for visits to some path
-  router.refresh();
+  // route on initial load
+  if(window.location.pathname === '/'){
+    router.navigate(window.lang, { trigger: true });
+  } else {
+    router.refresh();
+  }
 
   // debug
   window.un = {
