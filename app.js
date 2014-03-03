@@ -1,5 +1,7 @@
 $(function(){
 
+  API_URL = 'http://localhost:9000';
+
   window.lang = 'en';
 
   Handlebars.registerHelper('tmd', function(content){
@@ -41,7 +43,7 @@ $(function(){
 
     setOembed: function(){
       if(this.get('video')){
-        superagent.post('http://localhost:9000/oembed')
+        superagent.post(API_URL + '/oembed')
         .send({ url: this.get('video') })
         .end(function(response){
           var scaled = response.text.replace('width="1280"', 'width="640"').replace('height="720"', 'height="360"');
@@ -54,7 +56,7 @@ $(function(){
 
     //FIXME override Backbone.sync
     save: function(){
-      superagent.put('http://localhost:9000/' + this.id)
+      superagent.put(API_URL + this.id)
       .withCredentials()
       .send(this.toJSON())
       .end(function(response){ console.log('UPDATE: ', response); });
@@ -66,7 +68,7 @@ $(function(){
   // FIXME !!!DRY!!!
   var Crew = Backbone.Collection.extend({
     model: Person,
-    url: 'http://localhost:9000/people',
+    url: API_URL + '/people',
 
     initialize: function(){
       this.on('reset', function(){
@@ -102,7 +104,7 @@ $(function(){
 
     setOembed: function(){
       if(this.get('video')){
-        superagent.post('http://localhost:9000/oembed')
+        superagent.post(API_URL + '/oembed')
         .send({ url: this.get('video') })
         .end(function(response){
           var scaled = response.text.replace('width="1280"', 'width="640"').replace('height="720"', 'height="360"');
@@ -115,7 +117,7 @@ $(function(){
 
     //FIXME override Backbone.sync
     save: function(){
-      superagent.put('http://localhost:9000/' + this.id)
+      superagent.put(API_URL + this.id)
       .withCredentials()
       .send(this.toJSON())
       .end(function(response){ console.log('UPDATE: ', response); });
@@ -124,7 +126,7 @@ $(function(){
 
   var Projects = Backbone.Collection.extend({
     model: Project,
-    url: 'http://localhost:9000/projects',
+    url: API_URL + '/projects',
 
     initialize: function(){
       this.on('reset', function(){
@@ -466,7 +468,7 @@ $(function(){
   };
 
   var login = function(assertion){
-    superagent.post('http://localhost:9000/auth/login')
+    superagent.post(API_URL + '/auth/login')
     .withCredentials()
     .send({ assertion: assertion })
     .end(function(response){
@@ -483,7 +485,7 @@ $(function(){
 
   var logout =  function(){
     // FIXME decide if needs to sent assertion!
-    superagent.post('http://localhost:9000/auth/logout')
+    superagent.post(API_URL + '/auth/logout')
     .withCredentials()
     .end(function(response){
       console.log('Persona.onlogout()', response);
