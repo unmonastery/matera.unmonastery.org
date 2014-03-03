@@ -214,13 +214,31 @@ $(function(){
     structure: {
       en: {
         root: { url: '/en' },
-        people: { url: '/en/people', label: 'People'},
-        projects: { url: '/en/projects', label: 'Projects'}
+        news: { url: '/en/news', label: 'News'},
+        overview: { url: '/en/overview', label: 'Overview'},
+          about: { url: '/en/overview/about', label: 'About'},
+          faq: { url: '/en/overview/faq', label: 'FAQ'},
+          challenges: { url: '/en/overview/challenges', label: 'Challenges'},
+        community: { url: '/en/community', label: 'Community'},
+          peers: { url: '/en/community/peers', label: 'Peers'},
+          people: { url: '/en/community/people', label: 'People'},
+          events: { url: '/en/community/events', label: 'Events'},
+        projects: { url: '/en/projects', label: 'Projects'},
+        visiting: { url: '/en/visiting', label: 'Visiting'},
       },
       it: {
         root: { url: '/it' },
-        people: { url: '/it/people', label: 'Persone'},
-        projects: { url: '/it/projects', label: 'Progetti'}
+        news: { url: '/it/news', label: 'News'},
+        overview: { url: '/it/overview', label: 'Overview'},
+          about: { url: '/it/overview/about', label: 'About'},
+          faq: { url: '/it/overview/faq', label: 'FAQ'},
+          challenges: { url: '/it/overview/challenges', label: 'Challenges'},
+        community: { url: '/it/community', label: 'Community'},
+          peers: { url: '/it/community/peers', label: 'Peers'},
+          people: { url: '/it/community/people', label: 'People'},
+          events: { url: '/it/community/events', label: 'Events'},
+        projects: { url: '/it/projects', label: 'Projects'},
+        visiting: { url: '/it/visiting', label: 'Visiting'},
       }
     },
 
