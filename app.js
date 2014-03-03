@@ -89,19 +89,15 @@ $(function(){
     initialize: function(){
       _.bindAll(this, 'setAvatar', 'setOembed');
       this.on('change:description', this.save);
-      this.on('change:email', this.setAvatar);
       this.on('change:video', this.save);
       this.on('change:video', this.setOembed);
-      if(this.get('email')){
-        this.setAvatar();
-      }
       if(this.get('video')){
         this.setOembed();
       }
     },
 
     setAvatar: function(){
-      this.set('image', 'http://gravatar.com/avatar/' + md5(this.get('email')));
+      //FIXME
     },
 
     setOembed: function(){
