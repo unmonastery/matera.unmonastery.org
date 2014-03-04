@@ -74,6 +74,10 @@ hr {
   background-color: #FFF;
 }
 
+.navbar ul li ul a {
+  color:#8ba870;
+}
+
 /* Format social media and language links */
 
 .social {
@@ -137,4 +141,26 @@ hr {
 
 .sign-in {
   margin-top:15px;
+}
+
+/** CSS for static content **/
+
+.static-pages {
+  margin-top:-20px;
+  padding: 0px 75px 0px 75px;
+}
+
+/* Visiting page */
+.static-pages hr {
+  margin: 0px 0px 10px 0px;
+}
+
+.static-pages h3 {
+  margin-top: 50px;
+}
+
+/* For map image */
+#visiting img {
+  width:600px;
+  margin: 20px 0px 0px 0px;
 }

@@ -1,0 +1,29 @@
+#mc_embed_signup h3 {
+	display:inline;
+	padding:20px;
+}
+
+#mc_embed_signup img {
+	width:60px;
+	padding-bottom:10px;
+}
+
+div.mc-field-group {
+	margin: 10px 0px 0px 80px;
+}
+
+div.mc-field-group label {
+	font-weight:normal;
+}
+
+div.mc-field-group input {
+	display:block;
+}
+
+input.button {
+	margin: 25px 0px 0px 80px;
+}
+
+.asterisk {
+	color: #FF0000;
+}
