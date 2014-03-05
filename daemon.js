@@ -131,4 +131,4 @@ daemon.post('/projects/:part', saveProject);
 daemon.put('/projects/:part', saveProject);
 
 var server = http.createServer(daemon);
-server.listen(9000);
+server.listen(config.port);
