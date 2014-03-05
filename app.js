@@ -56,7 +56,7 @@ $(function(){
 
     //FIXME override Backbone.sync
     save: function(){
-      superagent.put(API_URL + this.id)
+      superagent.put(API_URL + '/' + this.id)
       .withCredentials()
       .send(this.toJSON())
       .end(function(response){ console.log('UPDATE: ', response); });
@@ -117,7 +117,7 @@ $(function(){
 
     //FIXME override Backbone.sync
     save: function(){
-      superagent.put(API_URL + this.id)
+      superagent.put(API_URL + '/' + this.id)
       .withCredentials()
       .send(this.toJSON())
       .end(function(response){ console.log('UPDATE: ', response); });
