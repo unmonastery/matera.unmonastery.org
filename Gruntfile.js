@@ -71,7 +71,8 @@ module.exports = function(grunt){
     var fs = require('fs');
     var lg = require('levelgraph');
     var lgJSONLD = require('levelgraph-jsonld');
-    var db = lgJSONLD(lg('dev.ldb'));
+    var config = require('./config/daemon');
+    var db = lgJSONLD(lg(config.db));
 
     var data = JSON.parse(fs.readFileSync('data.jsonld').toString());
     var context = JSON.parse(fs.readFileSync('unmonastery.jsonld').toString());

@@ -10,13 +10,13 @@ var async = require('async');
 var oembed = require('oembed-auto');
 var config = require('./config/daemon');
 
-var db = lgJSONLD(lg('dev.ldb'));
+var db = lgJSONLD(lg(config.db));
 
 daemon = express();
 daemon.use(cors({ origin: true, credentials: true }));
 daemon.use(express.bodyParser());
-daemon.use(express.cookieParser('Thalugnesfit0drowAbJaskEbyocyut'));
-daemon.use(express.cookieSession({ secret: 'RovFosithyltyojdykCadWysdurt2onn' })); //FIXME CSRF
+daemon.use(express.cookieParser(config.secrets.cookie));
+daemon.use(express.cookieSession({ secret: config.secrets.session })); //FIXME CSRF
 
 daemon.post('/auth/login', function(req, res){
   if(_.contains(config.audiences, req.headers.origin)){
