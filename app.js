@@ -217,14 +217,15 @@ $(function(){
     },
 
     pages: function(){
+      // FIXME
       console.log('Router.pages');
-      this.clearPage();
     },
 
     page: function(lang, part){
       var pageView = new PageView({ model: pages.findWhere({'@id': 'pages/' + part}) });
       $('#sidebar').hide(); // FIXME
       this.removeIndex();
+      this.clearPartials();
     },
 
     clearPage: function(){
