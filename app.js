@@ -213,30 +213,32 @@ $(function(){
       en: {
         root: { url: '/en' },
         news: { url: '/en/news', label: 'News'},
-        overview: { url: '/en/overview', label: 'Overview'},
-          about: { url: '/en/overview/about', label: 'About'},
-          faq: { url: '/en/overview/faq', label: 'FAQ'},
-          challenges: { url: '/en/overview/challenges', label: 'Challenges'},
-        community: { url: '/en/community', label: 'Community'},
-          peers: { url: '/en/community/peers', label: 'Peers'},
-          people: { url: '/en/community/people', label: 'People'},
-          events: { url: '/en/community/events', label: 'Events'},
+        overview: { url: '/en/sitemap', label: 'Overview'},
+          about: { url: '/en/pages/about', label: 'About'},
+          challenges: { url: '/en/challenges', label: 'Challenges'},
+          wishlist: { url: '/en/pages/wishlist', label: 'Wishlist'},
+          faq: { url: '/en/pages/faq', label: 'FAQ'},
+        community: { url: '/en/sitemap', label: 'Community'},
+          peers: { url: '/en/peers', label: 'Peers'},
+          people: { url: '/en/people', label: 'People'},
+          events: { url: '/en/events', label: 'Events'},
         projects: { url: '/en/projects', label: 'Projects'},
-        visiting: { url: '/en/visiting', label: 'Visiting'},
+        visiting: { url: '/en/pages/visiting', label: 'Visiting'},
       },
       it: {
         root: { url: '/it' },
         news: { url: '/it/news', label: 'News'},
-        overview: { url: '/it/overview', label: 'Overview'},
-          about: { url: '/it/overview/about', label: 'About'},
-          faq: { url: '/it/overview/faq', label: 'FAQ'},
-          challenges: { url: '/it/overview/challenges', label: 'Challenges'},
-        community: { url: '/it/community', label: 'Community'},
-          peers: { url: '/it/community/peers', label: 'Peers'},
-          people: { url: '/it/community/people', label: 'People'},
-          events: { url: '/it/community/events', label: 'Events'},
+        overview: { url: '/it/sitemap', label: 'Overview'},
+          about: { url: '/it/pages/about', label: 'About'},
+          challenges: { url: '/it/challenges', label: 'Challenges'},
+          wishlist: { url: '/it/pages/wishlist', label: 'Wishlist'},
+          faq: { url: '/it/pages/faq', label: 'FAQ'},
+        community: { url: '/it/sitemap', label: 'Community'},
+          peers: { url: '/it/peers', label: 'Peers'},
+          people: { url: '/it/people', label: 'People'},
+          events: { url: '/it/events', label: 'Events'},
         projects: { url: '/it/projects', label: 'Projects'},
-        visiting: { url: '/it/visiting', label: 'Visiting'},
+        visiting: { url: '/it/pages/visiting', label: 'Visiting'},
       }
     },
 
@@ -254,10 +256,9 @@ $(function(){
 
     navigate: function(event){
       event.preventDefault();
-      if(event.target.attributes.href){
+      var href = event.target.attributes.href.value;
+      if(href.split('/')[2] !== 'sitemap'){
         router.navigate(event.target.attributes.href.value, { trigger: true });
-      } else {
-        router.navigate('', { trigger: true });
       }
     }
   });
