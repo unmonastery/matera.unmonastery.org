@@ -8,6 +8,7 @@ var lgJSONLD = require('levelgraph-jsonld');
 var _ = require('lodash');
 var async = require('async');
 var oembed = require('oembed-auto');
+var config = require('./config/daemon');
 
 var db = lgJSONLD(lg('dev.ldb'));
 
@@ -18,18 +19,22 @@ daemon.use(express.cookieParser('Thalugnesfit0drowAbJaskEbyocyut'));
 daemon.use(express.cookieSession({ secret: 'RovFosithyltyojdykCadWysdurt2onn' })); //FIXME CSRF
 
 daemon.post('/auth/login', function(req, res){
-  request.post('https://verifier.login.persona.org/verify')
-    .send({
-      assertion: req.body.assertion,
-      audience: 'http://localhost:8080'
-    })
-    .end(function(vres){ //FIXME extract into function
+  if(_.contains(config.audiences, req.headers.origin)){
+    request.post('https://verifier.login.persona.org/verify')
+      .send({
+        assertion: req.body.assertion,
+        audience: req.headers.origin
+      })
+      .end(function(vres){ //FIXME extract into function
 
-      // start session
-      req.session.agent = vres.body;
+        // start session
+        req.session.agent = vres.body;
 
-      res.json(vres.body);
-    });
+        res.json(vres.body);
+      });
+  } else {
+    res.send(403);
+  }
 });
 
 daemon.post('/auth/logout', function(req, res){

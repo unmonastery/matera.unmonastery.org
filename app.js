@@ -472,13 +472,17 @@ $(function(){
     .withCredentials()
     .send({ assertion: assertion })
     .end(function(response){
-      var data = JSON.parse(response.text);
-      console.log('Persona.onlogin()', data);
-      agent.set(data);
-      agent.set('authenticated', true);
-      var crewMember = crew.findWhere({ email: agent.get('email') });
-      if(crewMember){
-        agent.set('@id', crewMember.get('@id'));
+      if(response.status === 200){
+        var data = JSON.parse(response.text);
+        console.log('Persona.onlogin()', data);
+        agent.set(data);
+        agent.set('authenticated', true);
+        var crewMember = crew.findWhere({ email: agent.get('email') });
+        if(crewMember){
+          agent.set('@id', crewMember.get('@id'));
+        }
+      } else {
+        // FIXME handle case of 403 etc.
       }
     });
   };
