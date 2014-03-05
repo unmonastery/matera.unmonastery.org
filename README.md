@@ -8,6 +8,7 @@ website of unMonastery
 ```shell
 $ bower install
 $ npm install
+$ cp config/daemon.example.js config/daemon.js
 $ grunt import
 
 $ grunt
