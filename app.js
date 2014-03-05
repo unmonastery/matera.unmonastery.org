@@ -2,11 +2,9 @@ $(function(){
 
   API_URL = 'http://localhost:9000';
 
-  window.lang = 'en';
-
   Handlebars.registerHelper('tmd', function(content){
-    if(content[lang]) {
-      return markdown.toHTML(content[lang]);
+    if(content[window.lang]) {
+      return markdown.toHTML(content[window.lang]);
     } else {
       return 'no content yet :(';
     }
@@ -227,18 +225,18 @@ $(function(){
       },
       it: {
         root: { url: '/it' },
-        news: { url: '/it/news', label: 'News'},
-        overview: { url: '/it/sitemap', label: 'Overview'},
-          about: { url: '/it/pages/about', label: 'About'},
-          challenges: { url: '/it/challenges', label: 'Challenges'},
-          wishlist: { url: '/it/pages/wishlist', label: 'Wishlist'},
-          faq: { url: '/it/pages/faq', label: 'FAQ'},
-        community: { url: '/it/sitemap', label: 'Community'},
-          peers: { url: '/it/peers', label: 'Peers'},
-          people: { url: '/it/people', label: 'People'},
-          events: { url: '/it/events', label: 'Events'},
-        projects: { url: '/it/projects', label: 'Projects'},
-        visiting: { url: '/it/pages/visiting', label: 'Visiting'},
+        news: { url: '/it/news', label: '[IT]News'},
+        overview: { url: '/it/sitemap', label: '[IT]Overview'},
+          about: { url: '/it/pages/about', label: '[IT]About'},
+          challenges: { url: '/it/challenges', label: '[IT]Challenges'},
+          wishlist: { url: '/it/pages/wishlist', label: '[IT]Wishlist'},
+          faq: { url: '/it/pages/faq', label: '[IT]FAQ'},
+        community: { url: '/it/sitemap', label: '[IT]Community'},
+          peers: { url: '/it/peers', label: '[IT]Peers'},
+          people: { url: '/it/people', label: '[IT]People'},
+          events: { url: '/it/events', label: '[IT]Events'},
+        projects: { url: '/it/projects', label: '[IT]Projects'},
+        visiting: { url: '/it/pages/visiting', label: '[IT]Visiting'},
       }
     },
 
@@ -262,8 +260,6 @@ $(function(){
       }
     }
   });
-
-  var nav = new Nav();
 
   function getLangPath(lang){
     var pathElements = Backbone.history.location.pathname.split('/');
@@ -376,7 +372,6 @@ $(function(){
         if(index % 3 === 0){
           row = $('<div class="row"></div>');
           this.$el.append(row);
-          window.foo = row;
         }
         var data = resource.toJSON();
         data.path = data["@id"]; //FIXME hbs seems not to handle @id / @type
@@ -454,11 +449,14 @@ $(function(){
   var agentMenu = new AgentMenu({ model: agent });
 
   // route on initial load
+  window.lang = 'en';
   if(window.location.pathname === '/'){
     router.navigate(window.lang, { trigger: true });
   } else {
+    window.lang = window.location.pathname.split('/')[1];
     router.refresh();
   }
+  var nav = new Nav();
 
   // debug
   window.un = {
