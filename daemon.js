@@ -85,6 +85,31 @@ function saveProject (req, res){
   });
 }
 
+// FIXME move to graph data!
+var editors = [
+  'perpetual-tripper@wwelves.org',
+  'kei@ourmachine.net',
+  'ben@vickers.tv'
+];
+
+function savePage(req, res){
+  if(_.contains(editors, req.session.agent.email)){
+    var page = req.body;
+    var id = context['@base'] + page['@id'];
+    db.jsonld.get(id, context, function(err, pg){
+      db.jsonld.del(id, function(err){
+        if(err) return console.error(err);
+        db.jsonld.put(page, function(err, obj){
+          if(err) return console.error(err);
+          res.send(200);
+        });
+      });
+    });
+  } else {
+    res.send(403);
+  }
+}
+
 // FIXME !!!DRY!!!
 daemon.get('/people', function(req, res){
   db.get({
@@ -118,6 +143,22 @@ daemon.get('/projects', function(req, res){
   });
 });
 
+daemon.get('/pages', function(req, res){
+  db.get({
+    predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+    object: 'http://schema.org/WebPage'
+  }, function(err, triples){
+    async.map(triples, function(triple, callback){
+      db.jsonld.get(triple.subject, context, function(error, obj){
+        callback(error, obj);
+      }.bind(this));
+    }, function(error, pages){
+      if(error) return console.log(error);
+      res.json(pages);
+    });
+  });
+});
+
 daemon.get('/people/:part', function(req, res){
   var id = 'http://unmonastery.net/people/' + req.params.part;
   db.jsonld.get(id, { '@context': context }, function(err, obj){
@@ -129,6 +170,9 @@ daemon.put('/people/:part', savePerson);
 
 daemon.post('/projects/:part', saveProject);
 daemon.put('/projects/:part', saveProject);
+
+daemon.post('/pages/:part', savePage);
+daemon.put('/pages/:part', savePage);
 
 var server = http.createServer(daemon);
 server.listen(config.port);

@@ -71,7 +71,7 @@ $(function(){
     initialize: function(){
       this.on('reset', function(){
         console.log('People loaded!');
-        router.refresh();
+        router.refresh(); // FIXME
       });
       this.fetch({ reset: true });
     }
@@ -124,12 +124,13 @@ $(function(){
 
   var Projects = Backbone.Collection.extend({
     model: Project,
+
     url: API_URL + '/projects',
 
     initialize: function(){
       this.on('reset', function(){
         console.log('People loaded!');
-        router.refresh();
+        router.refresh(); // FIXME
       });
       this.fetch({ reset: true });
     }
@@ -137,15 +138,41 @@ $(function(){
 
   var projects = new Projects();
 
-  var partials = new Array('#profile','#sideNav');
+  var Page = Backbone.Model.extend({
+    idAttribute: '@id',
 
-  _.extend(Backbone.Router.prototype,{
-    refresh: function() {
-      var _tmp = Backbone.history.fragment;
-      this.navigate( _tmp + (new Date()).getTime() );
-      this.navigate( _tmp, { trigger:true } );
+    defaults: {
+      description: {}
+    },
+
+    initialize: function(){
+      this.on('change:description', this.save);
+    },
+
+    save: function(){
+      console.log('Page.save');
+      superagent.put(API_URL + '/' + this.id)
+      .withCredentials()
+      .send(this.toJSON())
+      .end(function(response){ console.log('UPDATE: ', response); });
     }
   });
+
+  var Pages = Backbone.Collection.extend({
+    model: Page,
+
+    url: API_URL + '/pages',
+
+    initialize: function(){
+      this.on('reset', function(){
+        console.log('Pages loaded!');
+        router.refresh(); // FIXME
+      });
+      this.fetch({ reset: true });
+    }
+  });
+
+  var pages = new Pages();
 
   var Router = Backbone.Router.extend({
     routes: {
@@ -154,31 +181,55 @@ $(function(){
       ':lang/people/:part': 'person',
       ':lang/projects': 'projects',
       ':lang/projects/:part': 'project',
+      ':lang/pages': 'pages',
+      ':lang/pages/:part': 'page',
+      ':lang/:part': 'page'
     },
 
     root: function(lang){
+      this.clearPage();
     },
 
     people: function(){
       var index = new Index({ collection: crew });
       this.stretchIndex();
+      this.clearPage();
     },
 
     person: function(lang, part){
       var profile = new Profile({ model: crew.findWhere({'@id': 'people/' + part}) });
       var sideNav = new SideNav({ collection: crew });
       this.removeIndex();
+      this.clearPage();
     },
 
     projects: function(){
       var index = new Index({ collection: projects });
       this.stretchIndex();
+      this.clearPage();
     },
 
     project: function(lang, part){
       var profile = new Profile({ model: projects.findWhere({'@id': 'projects/' + part}) });
       var sideNav = new SideNav({ collection: projects });
       this.removeIndex();
+      this.clearPage();
+    },
+
+    pages: function(){
+      console.log('Router.pages');
+      this.clearPage();
+    },
+
+    page: function(lang, part){
+      var pageView = new PageView({ model: pages.findWhere({'@id': 'pages/' + part}) });
+      $('#sidebar').hide(); // FIXME
+      this.removeIndex();
+    },
+
+    clearPage: function(){
+      $('#page').find('[property="description"]').empty();
+      $('#sidebar').show(); // FIXME
     },
 
     removeIndex: function(){
@@ -194,8 +245,12 @@ $(function(){
     clearPartials: function(){
       $('#profile').empty();
       $('#sideNav').empty();
-      /* for (var i=0;i<partials.length;i++)
-            $([i]).empty(); *** Not working yet BUT not necessary if we only have one profile template for people, peers, etc. *** */
+    },
+
+    refresh: function() {
+      var _tmp = Backbone.history.fragment;
+      this.navigate( _tmp + (new Date()).getTime() );
+      this.navigate( _tmp, { trigger:true } );
     }
 
   });
@@ -256,7 +311,7 @@ $(function(){
       event.preventDefault();
       var href = event.target.attributes.href.value;
       if(href.split('/')[2] !== 'sitemap'){
-        router.navigate(event.target.attributes.href.value, { trigger: true });
+        router.navigate(href, { trigger: true });
       }
     }
   });
@@ -445,6 +500,59 @@ $(function(){
     }
   });
 
+  var PageView = Backbone.View.extend({
+    el: '#page',
+
+    initialize: function(){
+      _.bindAll(this, 'render');
+      if(this.model){ // FIXME sometimes called before loading data
+        this.render();
+      }
+    },
+
+    render: function(){
+      var description = this.$el.find('[property=description]');
+      var content = this.model.get('description');
+      if(content){
+        if(content[window.lang]){
+          $(description).html(markdown.toHTML(this.model.get('description')[window.lang]));
+        } else {
+          $(description).html('no content yet :(');
+        }
+      }
+      // FIXME move to graph data!
+      var editors = [
+        'perpetual-tripper@wwelves.org',
+        'kei@ourmachine.net',
+        'ben@vickers.tv'
+      ];
+      // FIXME make sure only one editor at a time ;)
+      if(_.contains(editors, agent.get('email'))){
+        var editor = $('<textarea style="width: 100%; height: 12em;"></textarea>');
+        description.bind('click', function(event){
+          if($(event.target)[0] === editor[0]){
+            return event.stopPropagation();
+          }
+          $(description).empty();
+          $(description).append(editor);
+          $(editor).val(this.model.get('description')[lang]);
+          $(editor).focus();
+        }.bind(this));
+        editor.bind('blur', function(){
+          //debugger;
+          var marked = editor.val();
+          var desc = _.clone(this.model.get('description'));
+          desc[lang] = marked;
+          this.model.set('description', desc);
+          $(editor).detach();
+          var rendered = markdown.toHTML(marked);
+          $(description).html(rendered);
+          if (rendered.replace(/^\s+|\s+$/g, '') === '') this.render();
+        }.bind(this));
+      }
+    }
+  });
+
   var agent = new Person();
   var agentMenu = new AgentMenu({ model: agent });
 
@@ -463,6 +571,7 @@ $(function(){
     agent: agent,
     crew: crew,
     projects: projects,
+    pages: pages,
     router: router
   };
 

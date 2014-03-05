@@ -64,5 +64,45 @@
     "@type": "Organization",
     "name": "Community Interface",
     "founder": "people/cristiano-siri"
+  },
+
+  {
+    "@id": "pages/about",
+    "@type": "WebPage"
+  },
+
+  {
+    "@id": "pages/wishlist",
+    "@type": "WebPage"
+  },
+
+  {
+    "@id": "pages/faq",
+    "@type": "WebPage"
+  },
+
+  {
+    "@id": "pages/visiting",
+    "@type": "WebPage"
+  },
+
+  {
+    "@id": "pages/news",
+    "@type": "WebPage"
+  },
+
+  {
+    "@id": "pages/events",
+    "@type": "WebPage"
+  },
+
+  {
+    "@id": "pages/peers",
+    "@type": "WebPage"
+  },
+
+  {
+    "@id": "pages/challenges",
+    "@type": "WebPage"
   }
 ]
