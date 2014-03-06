@@ -230,6 +230,7 @@ $(function(){
 
     clearPage: function(){
       $('#page').find('[property="description"]').empty();
+      $('#calendar').remove(); //FIXME clears hardcoded calendar frame
       $('#sidebar').show(); // FIXME
     },
 
@@ -523,7 +524,7 @@ $(function(){
       }
       if(this.model.id === 'pages/events'){
         // FIXME temporalry event calendar
-        this.$el.append('<iframe src="https://www.google.com/calendar/embed?src=74ul0d0i6oc3mp8g2e0o0h28sc%40group.calendar.google.com&ctz=Europe/Rome" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>');
+        this.$el.append('<iframe id=calendar src="https://www.google.com/calendar/embed?src=74ul0d0i6oc3mp8g2e0o0h28sc%40group.calendar.google.com&ctz=Europe/Rome" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>');
       }
       // FIXME move to graph data!
       var editors = [
