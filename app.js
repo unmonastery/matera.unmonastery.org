@@ -24,10 +24,11 @@ $(function(){
     initialize: function(){
       _.bindAll(this, 'setAvatar', 'setOembed');
       this.on('change:description', this.save);
+      this.on('change:image', this.save);
       this.on('change:video', this.save);
       this.on('change:video', this.setOembed);
       this.on('change:email', this.setAvatar);
-      if(this.get('email')){
+      if(!this.get('image') && this.get('email')){
         this.setAvatar();
       }
       if(this.get('video')){
@@ -36,7 +37,7 @@ $(function(){
     },
 
     setAvatar: function(){
-      this.set('image', 'http://gravatar.com/avatar/' + md5(this.get('email')));
+      this.set('image', 'http://gravatar.com/avatar/' + md5(this.get('email')), { silent: true });
     },
 
     setOembed: function(){
@@ -89,6 +90,7 @@ $(function(){
     initialize: function(){
       _.bindAll(this, 'setAvatar', 'setOembed');
       this.on('change:description', this.save);
+      this.on('change:image', this.save);
       this.on('change:video', this.save);
       this.on('change:video', this.setOembed);
       if(this.get('video')){
@@ -511,6 +513,19 @@ $(function(){
               this.render();
             }
           }
+        }.bind(this));
+
+        // edit image
+        var image = this.$el.find('[property=image]');
+        var input = $('<input value="' + image.attr('src')  + '" style="width: 100%" />');
+        image.bind('click', function(event){
+          input.insertAfter(image);
+          input.focus();
+        }.bind(this));
+        input.bind('blur', function(){
+          this.model.set('image', input.val());
+          input.detach();
+          image.attr('src', input.val());
         }.bind(this));
       }
     }
