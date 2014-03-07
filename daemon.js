@@ -174,5 +174,8 @@ daemon.put('/projects/:part', saveProject);
 daemon.post('/pages/:part', savePage);
 daemon.put('/pages/:part', savePage);
 
+daemon.post('/news/:part', savePage);
+daemon.put('/news/:part', savePage);
+
 var server = http.createServer(daemon);
 server.listen(config.port);

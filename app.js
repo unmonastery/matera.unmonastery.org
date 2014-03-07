@@ -183,6 +183,8 @@ $(function(){
       ':lang/projects/:part': 'project',
       ':lang/pages': 'pages',
       ':lang/pages/:part': 'page',
+      ':lang/news': 'blog',
+      ':lang/news/:part': 'article',
       ':lang/:part': 'page'
     },
 
@@ -223,6 +225,18 @@ $(function(){
 
     page: function(lang, part){
       var pageView = new PageView({ model: pages.findWhere({'@id': 'pages/' + part}) });
+      $('#sidebar').hide(); // FIXME
+      this.removeIndex();
+      this.clearPartials();
+    },
+
+    blog: function(){
+      // FIXME
+      console.log('Router.blog');
+    },
+
+    article: function(lang, part){
+      var pageView = new PageView({ model: pages.findWhere({'@id': 'news/' + part}) });
       $('#sidebar').hide(); // FIXME
       this.removeIndex();
       this.clearPartials();
