@@ -266,7 +266,7 @@ $(function(){
 
     structure: {
       en: {
-        root: { url: '/en' },
+        root: { url: '/en', label: 'unMonastery:Matera' },
         news: { url: '/en/news', label: 'News'},
         overview: { url: '/en/sitemap', label: 'Overview'},
           about: { url: '/en/pages/about', label: 'About'},
@@ -281,7 +281,7 @@ $(function(){
         visiting: { url: '/en/pages/visiting', label: 'Visiting'},
       },
       it: {
-        root: { url: '/it' },
+        root: { url: '/it', label: 'unMonastery:Matera' },
         news: { url: '/it/news', label: 'News'},
         overview: { url: '/it/sitemap', label: 'Su di noi'},
           about: { url: '/it/pages/about', label: 'Informazioni generali'},
