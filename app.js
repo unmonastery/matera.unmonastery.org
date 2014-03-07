@@ -563,7 +563,7 @@ $(function(){
   var agentMenu = new AgentMenu({ model: agent });
 
   // route on initial load
-  window.lang = 'en';
+  window.lang = 'it';
   if(window.location.pathname === '/'){
     router.navigate(window.lang, { trigger: true });
   } else {
