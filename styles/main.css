@@ -7,6 +7,68 @@
          url('../vendor/fonts/Monda-Regular.svg#svgFontName') format('svg'); /* Legacy iOS */
 }
 
+@font-face {
+    font-family: 'Museo Sans Thin';
+    src: url('../vendor/fonts/museosans-100-webfont.eot');
+    src: url('../vendor/fonts/museosans-100-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../vendor/fonts/museosans-100-webfont.woff') format('woff'),
+         url('../vendor/fonts/museosans-100-webfont.ttf') format('truetype'),
+         url('../vendor/fonts/museosans-100-webfont.svg#museo_sans300') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Museo Sans';
+    src: url('../vendor/fonts/museosans-300-webfont.eot');
+    src: url('../vendor/fonts/museosans-300-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../vendor/fonts/museosans-300-webfont.woff') format('woff'),
+         url('../vendor/fonts/museosans-300-webfont.ttf') format('truetype'),
+         url('../vendor/fonts/museosans-300-webfont.svg#museo_sans300') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Museo Sans Italic';
+    src: url('../vendor/fonts/museosans-300italic-webfont.eot');
+    src: url('../vendor/fonts/museosans-300italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../vendor/fonts/museosans-300italic-webfont.woff') format('woff'),
+         url('../vendor/fonts/museosans-300italic-webfont.ttf') format('truetype'),
+         url('../vendor/fonts/museosans-300italic-webfont.svg#museo_sans300_italic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Museo Sans Bold';
+    src: url('../vendor/fonts/museosans-700-webfont.eot');
+    src: url('../vendor/fonts/museosans-700-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../vendor/fonts/museosans-700-webfont.woff') format('woff'),
+         url('../vendor/fonts/museosans-700-webfont.ttf') format('truetype'),
+         url('../vendor/fonts/museosans-700-webfont.svg#museo_sans700') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Museo Sans Bold Italic';
+    src: url('../vendor/fonts/museosans-700italic-webfont.eot');
+    src: url('../vendor/fonts/museosans-700italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../vendor/fonts/museosans-700italic-webfont.woff') format('woff'),
+         url('../vendor/fonts/museosans-700italic-webfont.ttf') format('truetype'),
+         url('../vendor/fonts/museosans-700italic-webfont.svg#museo_sans700_italic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+html {
+  letter-spacing: .05em;
+}
+
 /* Add margin to index grid and avatars */
 
 .index-grid {
@@ -83,6 +145,10 @@ hr {
 .social {
   margin: 10px 15px 10px 10px;
   line-height: 50px;
+}
+
+.social a {
+    text-decoration: none;
 }
 
 .language {
