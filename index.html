@@ -21,6 +21,8 @@
     <link href="/styles/main.css" rel="stylesheet">
     <link rel="stylesheet" href="/styles/mailchimp.css">
     <link rel="stylesheet" href="/styles/fontello.css">
+    <link href="/vendor/css/jquery.gcal_flow.css" rel="stylesheet" type="text/css">
+
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -30,6 +32,7 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
   </head>
 
   <body>
@@ -79,6 +82,8 @@
           </div>
 
           <div id="index"></div>
+
+          <div id="gcf-simple"></div>
 
           <div id="profile"></div>
 
@@ -133,7 +138,13 @@
     <script src="/bower_components/markdown/lib/markdown.js"></script>
     <script src="/vendor/js/offcanvas.js"></script> <!-- FIXME -->
     <script src="https://login.persona.org/include.js"></script>
+    <script type="text/javascript" src="/vendor/js/jquery.gcal_flow.min.js"></script>
     <script src="/tmp/templates.js"></script>
     <script src="/app.js"></script>
+    <script type="text/javascript">
+      $('#gcf-simple').gCalFlow({
+        calid: '74ul0d0i6oc3mp8g2e0o0h28sc@group.calendar.google.com'
+      });
+    </script>
   </body>
 </html>
