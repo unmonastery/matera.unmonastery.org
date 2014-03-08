@@ -472,8 +472,14 @@ $(function(){
     render: function(){
       var partial = JST.profile(this.model.toJSON());
       this.$el.html(partial);
-      if(this.model.get('email') === agent.get('email') ||
-         this.model.get('founder') === agent.get('@id')) { //FIXME support for multiple founders
+      var editable = false;
+      if(agent.get('email')){
+        if(this.model.get('email') === agent.get('email') ||
+           this.model.get('founder') === agent.get('@id')) { //FIXME support for multiple founders
+          editable = true;
+        }
+      }
+      if(editable){
         // edit description
         var description = this.$el.find('[property=description]');
         var editor = $('<textarea style="width: 100%; height: 12em;"></textarea>');
