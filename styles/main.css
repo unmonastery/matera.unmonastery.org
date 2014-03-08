@@ -230,3 +230,8 @@ hr {
   width:600px;
   margin: 20px 0px 0px 0px;
 }
+
+footer img {
+  width: 30px;
+  padding: 0px 5px 0px 5px;
+}
