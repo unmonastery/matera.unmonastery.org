@@ -225,13 +225,27 @@ hr {
   margin-top: 50px;
 }
 
-/* For map image */
-#visiting img {
-  width:600px;
-  margin: 20px 0px 0px 0px;
+footer {
+  line-height: 25px;
 }
 
 footer img {
-  width: 30px;
-  padding: 0px 5px 0px 5px;
+  height: 25px;
+  margin: 0px 5px 0px 5px;
 }
+
+footer span {
+  font-size:75%;
+}
+
+.footer-left img {
+  width:15px;
+  height:auto;
+}
+
+.footer-right {
+  display:inline;
+  float:right;
+}
+
+
