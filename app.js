@@ -228,6 +228,9 @@ $(function(){
     page: function(lang, part){
       var pageView = new PageView({ model: pages.findWhere({'@id': 'pages/' + part}) });
       $('#sidebar').hide(); // FIXME
+      if(part !== 'events') {
+        $('#calendar').remove(); //FIXME clears hardcoded calendar frame
+      }
       this.removeIndex();
       this.clearPartials();
     },
