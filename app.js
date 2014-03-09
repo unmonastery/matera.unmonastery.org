@@ -565,7 +565,8 @@ $(function(){
       var editors = [
         'perpetual-tripper@wwelves.org',
         'kei@ourmachine.net',
-        'ben@vickers.tv'
+        'ben@vickers.tv',
+        'cristiano.siri@gmail.com'
       ];
       // FIXME make sure only one editor at a time ;)
       if(_.contains(editors, agent.get('email'))){

@@ -89,7 +89,8 @@ function saveProject (req, res){
 var editors = [
   'perpetual-tripper@wwelves.org',
   'kei@ourmachine.net',
-  'ben@vickers.tv'
+  'ben@vickers.tv',
+  'cristiano.siri@gmail.com'
 ];
 
 function savePage(req, res){
