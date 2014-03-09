@@ -286,7 +286,7 @@ $(function(){
     structure: {
       en: {
         root: { url: '/en', label: 'unMonastery:Matera' },
-        news: { url: '/en/news', label: 'News'},
+        news: { url: 'http://en-news.unmonastery.org', label: 'News'},
         overview: { url: '/en/sitemap', label: 'Overview'},
           about: { url: '/en/pages/about', label: 'About'},
           challenges: { url: '/en/challenges', label: 'Challenges'},
@@ -301,7 +301,7 @@ $(function(){
       },
       it: {
         root: { url: '/it', label: 'unMonastery:Matera' },
-        news: { url: '/it/news', label: 'News'},
+        news: { url: 'http://it-news.unmonastery.org', label: 'News'},
         overview: { url: '/it/sitemap', label: 'Su di noi'},
           about: { url: '/it/pages/about', label: 'Informazioni generali'},
           challenges: { url: '/it/challenges', label: 'Sfide'},
@@ -329,10 +329,12 @@ $(function(){
     },
 
     navigate: function(event){
-      event.preventDefault();
       var href = event.target.attributes.href.value;
-      if(href.split('/')[2] !== 'sitemap'){
-        router.navigate(href, { trigger: true });
+      if(!href.match('http://')){
+        event.preventDefault();
+        if(href.split('/')[2] !== 'sitemap'){
+          router.navigate(href, { trigger: true });
+        }
       }
     }
   });
