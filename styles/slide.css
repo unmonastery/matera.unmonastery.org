@@ -87,17 +87,17 @@
     color: #CCC
   }
 
-  .navbar {
+  /*.navbar {
     overflow: hidden
-  }
+  } */
 
   #slides {
     display: none
   }
 
-  .container {
+  /* .container {
     margin: 0 auto
-  }
+  } */
 
   /* For tablets & smart phones */
   @media (max-width: 767px) {
