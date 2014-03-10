@@ -108,7 +108,7 @@ hr {
 
 .jumbotron div[property="description"] {
   margin: 15px 0px 15px 0px;
-  font-size: 21px;
+  font-size: 16px;
   font-weight: 200;
 }
 
@@ -124,13 +124,13 @@ hr {
 
 .navbar {
 	background-color: #FFF;
-	max-height:70px;
-  overflow:hidden;
+	min-height:70px;
   box-shadow: 0 5px 8px rgba(0, 0, 0, .05);
+  line-height:50px;
 }
 
 .navbar-brand {
-  font-size: 26px;
+  font-size: 22px;
 }
 
 .navbar-brand a > hover {
@@ -145,7 +145,8 @@ hr {
 
 .social {
   margin: 10px 15px 10px 10px;
-  line-height: 50px;
+  line-height: auto;
+  top:10px;
   /*width:25%;*/
 }
 
@@ -202,7 +203,7 @@ hr {
 }
 
 .content-container {
-	padding-top:30px;
+  margin-top:30px;
 }
 
 /* Lower button */
@@ -249,8 +250,3 @@ footer span {
   display:inline;
   float:right;
 }
-
-#agentMenu {
-}
-
-
