@@ -1,5 +1,11 @@
 {{#if authenticated}}
-  <img class="navbar-right personal_avatar" src="{{image}}" />
+<div class="dropdown">
+  <img class="navbar-right personal_avatar dropdown-toggle" id="dropdownMenu2" data-toggle="dropdown" src="{{image}}" />
+  <ul class="dropdown-menu logout" role="menu" aria-labelledby="dropdownMenu2">
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Log out</a></li>
+  </ul>
+</div>
+
 {{else}}
   <button type="button" class="navbar-right btn btn-default navbar-btn sign-in">Sign in</button>
 {{/if}}
