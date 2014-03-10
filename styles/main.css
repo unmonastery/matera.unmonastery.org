@@ -124,7 +124,8 @@ hr {
 
 .navbar {
 	background-color: #FFF;
-	height:70px;
+	max-height:70px;
+  overflow:hidden;
   box-shadow: 0 5px 8px rgba(0, 0, 0, .05);
 }
 
@@ -145,6 +146,7 @@ hr {
 .social {
   margin: 10px 15px 10px 10px;
   line-height: 50px;
+  /*width:25%;*/
 }
 
 .social a {
@@ -246,6 +248,9 @@ footer span {
 .footer-right {
   display:inline;
   float:right;
+}
+
+#agentMenu {
 }
 
 
