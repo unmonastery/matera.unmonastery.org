@@ -196,6 +196,8 @@ $(function(){
 
     root: function(lang){
       this.clearPage();
+      this.stretchIndex();
+      $('#home').show(); // FIXME
     },
 
     people: function(){
@@ -237,6 +239,7 @@ $(function(){
       }
       this.removeIndex();
       this.clearPartials();
+      $('#home').hide(); // FIXME
     },
 
     blog: function(){
@@ -255,6 +258,7 @@ $(function(){
       $('#page').find('[property="description"]').empty();
       $('#calendar').remove(); //FIXME clears hardcoded calendar frame
       $('#sidebar').show(); // FIXME
+      $('#home').hide(); // FIXME
     },
 
     removeIndex: function(){
