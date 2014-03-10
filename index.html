@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" sizes="16x16 32x32 128x128 href="assets/images/favicon_16x16.png">
+    <link rel="shortcut icon" sizes="16x16 32x32 128x128" href="assets/images/favicon_16x16.png">
 
     <!--[if IE]> <link rel="shortcut icon" href="assets/images/favicon_16x16.ico"><!--<![endif]--> 
 
@@ -23,6 +23,10 @@
     <link rel="stylesheet" href="/styles/fontello.css">
     <link href="/vendor/css/jquery.gcal_flow.css" rel="stylesheet" type="text/css">
 
+
+    <!-- CSS for slidesjs example -->
+    <link rel="stylesheet" href="styles/slide.css">
+    <!-- End CSS for slidesjs.com example -->
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -85,6 +89,29 @@
 
           <div id="gcf-simple"></div>
 
+          <div class="slide-container">
+            <div id="slides">
+              <div class="slide">
+                <img src="assets/images/carousel/OC_banner.png">
+                <div class="caption"><p>unMonastery apre ufficialmente le sue porte Sabato 15 Marzo con una giornata ricca di festeggiamenti e di presentazioni di numerosi progetti della comunità locale. Partecipa anche tu! <a href="#">Per saperne di più.</a></p></div>
+              </div>
+              <div class="slide">
+                <img src="assets/images/carousel/people.jpg">
+                <div class="caption"><p>Le prime nonMonache si sono ormai felicemente ambientate a Matera e altre stanno arrivando! <a href="/pages/visiting">Scopri la nostra comunità.</a> </p></div>
+              </div>
+              <div class="slide">
+                <img src="assets/images/carousel/visiting.jpg">
+                <div class="caption"><p>I ragazzi di Rigeneriamo sono venuti a trovarci e a parlarci di quanto hanno fatto a Matera. Vieni anche tu a visitarci e a condivere il tuo progetto. <a href="#">Ecco come venirci a trovare.</a></p></div>
+              </div>
+              <div class="slide">
+                <img src="assets/images/carousel/opentechschool.jpg">
+                <div class="caption"><p>La Open Tech School di Matera sta crescendo: offrirà workshop gratuiti di programmazione, animazione, produzione video, web design e altro ancora. <a href="#">Visita la pagina del progetto.</a></p></div>
+              </div>             
+                <a href="#" class="slidesjs-previous slidesjs-navigation icon-left-open"></a>
+                <a href="#" class="slidesjs-next slidesjs-navigation icon-right-open"></a>
+            </div>
+          </div>
+
           <div id="profile"></div>
 
           <div class="static-pages">
@@ -146,5 +173,47 @@
         calid: '74ul0d0i6oc3mp8g2e0o0h28sc@group.calendar.google.com'
       });
     </script>
+    <!-- SlidesJS Required: Link to jQuery
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script> -->
+    <!-- End SlidesJS Required -->
+    <!-- SlidesJS Required: Link to jquery.slides.js -->
+    <script src="/vendor/js/jquery.slides.min.js"></script>
+
+    <!-- SlidesJS Required: Initialize SlidesJS with a jQuery doc ready -->
+    <script>
+      $(function() {
+        $('#slides').slidesjs({
+          width: 800,
+          height: 400,
+          navigation: false,
+          play: {
+            active: false,
+              // [boolean] Generate the play and stop buttons.
+              // You cannot use your own buttons. Sorry.
+            effect: "slide",
+              // [string] Can be either "slide" or "fade".
+            interval: 5000,
+              // [number] Time spent on each slide in milliseconds.
+            auto: true,
+              // [boolean] Start playing the slideshow on load.
+            swap: true,
+              // [boolean] show/hide stop and play buttons
+            pauseOnHover: false,
+              // [boolean] pause a playing slideshow on hover
+            restartDelay: 2500,
+              // [number] restart delay on inactive slideshow
+          },
+          effect: {
+            slide: {
+              // Slide effect settings.
+              speed: 2000,
+                // [number] Speed in milliseconds of the slide animation.
+            },
+          }
+        });
+      });
+    </script>
+    <!-- End SlidesJS Required -->
+
   </body>
 </html>
