@@ -250,3 +250,11 @@ footer span {
   display:inline;
   float:right;
 }
+
+.announcements {
+  padding-top:450px;
+  margin-bottom:30px;
+}
+
+.announcements h3 {
+}
