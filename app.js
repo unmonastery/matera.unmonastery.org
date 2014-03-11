@@ -690,6 +690,7 @@ $(function(){
         console.log('Persona.onlogin()', data);
         agent.set(data);
         agent.set('authenticated', true);
+        router.refresh(); //FIXME hack to enable editor
         var crewMember = crew.findWhere({ email: agent.get('email') });
         if(crewMember){
           agent.set('@id', crewMember.get('@id'));
