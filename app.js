@@ -233,6 +233,7 @@ $(function(){
       this.setLanguage(lang);
       this.clearPage();
       this.stretchIndex();
+      $('#index').empty();
       $('#home').show(); // FIXME
     },
 
