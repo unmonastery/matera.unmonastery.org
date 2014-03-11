@@ -229,16 +229,19 @@ hr {
 }
 
 footer {
-  line-height: 25px;
+  height: 75px;
+  margin-left: 15px;
+  margin-right: 15px;
+  font-size:75%;
 }
 
 footer img {
-  height: 25px;
   margin: 0px 5px 0px 5px;
 }
 
-footer span {
-  font-size:75%;
+
+.footer-left {
+  line-height: 75px;
 }
 
 .footer-left img {
@@ -247,14 +250,18 @@ footer span {
 }
 
 .footer-right {
-  display:inline;
   float:right;
+}
+
+.footer-right img {
+  height:75px;
+}
+
+#edgeryders {
+  height:45px;
 }
 
 .announcements {
   padding-top:450px;
   margin-bottom:30px;
-}
-
-.announcements h3 {
 }
