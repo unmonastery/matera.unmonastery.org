@@ -114,6 +114,25 @@ function savePage(req, res){
   }
 }
 
+function saveEvent(req, res){
+  if(_.contains(editors, req.session.agent.email)){
+    var event = req.body;
+    var id = context['@base'] + event['@id'];
+    db.jsonld.get(id, context, function(err, ev){
+      // FIXME make del & put transactional
+      db.jsonld.del(id, function(err){
+        if(err) return console.error(err);
+        db.jsonld.put(event, function(err, obj){
+          if(err) return console.error(err);
+          res.send(200);
+        });
+      });
+    });
+  } else {
+    res.send(403);
+  }
+}
+
 // FIXME !!!DRY!!!
 daemon.get('/people', function(req, res){
   db.get({
@@ -163,6 +182,22 @@ daemon.get('/pages', function(req, res){
   });
 });
 
+daemon.get('/events', function(req, res){
+  db.get({
+    predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+    object: 'http://schema.org/Event'
+  }, function(err, triples){
+    async.map(triples, function(triple, callback){
+      db.jsonld.get(triple.subject, context, function(error, obj){
+        callback(error, obj);
+      }.bind(this));
+    }, function(error, events){
+      if(error) return console.log(error);
+      res.json(events);
+    });
+  });
+});
+
 daemon.get('/people/:part', function(req, res){
   var id = 'http://unmonastery.net/people/' + req.params.part;
   db.jsonld.get(id, { '@context': context }, function(err, obj){
@@ -177,6 +212,9 @@ daemon.put('/projects/:part', saveProject);
 
 daemon.post('/pages/:part', savePage);
 daemon.put('/pages/:part', savePage);
+
+daemon.post('/events/:part', saveEvent);
+daemon.put('/events/:part', saveEvent);
 
 var server = http.createServer(daemon);
 server.listen(config.port);

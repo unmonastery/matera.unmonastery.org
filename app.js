@@ -180,6 +180,42 @@ $(function(){
 
   var pages = new Pages();
 
+  var Event = Backbone.Model.extend({
+    idAttribute: '@id',
+
+    defaults: {
+      description: {}
+    },
+
+    initialize: function(){
+      this.on('change:description', this.save);
+    },
+
+    save: function(){
+      console.log('Event.save');
+      superagent.put(API_URL + '/' + this.id)
+      .withCredentials()
+      .send(this.toJSON())
+      .end(function(response){ console.log('UPDATE: ', response); });
+    }
+  });
+
+  var Events = Backbone.Collection.extend({
+    model: Event,
+
+    url: API_URL + '/events',
+
+    initialize: function(){
+      this.on('reset', function(){
+        console.log('Events loaded!');
+        router.refresh(); // FIXME
+      });
+      this.fetch({ reset: true });
+    }
+  });
+
+  var events = new Events();
+
   var Router = Backbone.Router.extend({
     routes: {
       ':lang': 'root',
@@ -189,6 +225,7 @@ $(function(){
       ':lang/projects/:part': 'project',
       ':lang/pages': 'pages',
       ':lang/pages/:part': 'page',
+      ':lang/events/:part': 'event',
       ':lang/:part': 'page'
     },
 
@@ -231,6 +268,17 @@ $(function(){
 
     page: function(lang, part){
       var pageView = new PageView({ model: pages.findWhere({'@id': 'pages/' + part}) });
+      $('#sidebar').hide(); // FIXME
+      if(part !== 'events') {
+        $('#calendar').remove(); //FIXME clears hardcoded calendar frame
+      }
+      this.removeIndex();
+      this.clearPartials();
+      $('#home').hide(); // FIXME
+    },
+
+    event: function(lang, part){
+      var pageView = new PageView({ model: events.findWhere({'@id': 'events/' + part}) });
       $('#sidebar').hide(); // FIXME
       if(part !== 'events') {
         $('#calendar').remove(); //FIXME clears hardcoded calendar frame
@@ -551,6 +599,7 @@ $(function(){
     render: function(){
       var description = this.$el.find('[property=description]');
       var content = this.model.get('description');
+      console.log(window.lang);
       if(content){
         if(content[window.lang]){
           $(description).html(markdown.toHTML(this.model.get('description')[window.lang]));
@@ -615,6 +664,7 @@ $(function(){
     crew: crew,
     projects: projects,
     pages: pages,
+    events: events,
     router: router
   };
 
