@@ -53,6 +53,7 @@ var context = JSON.parse(fs.readFileSync('unmonastery.jsonld').toString());
 function savePerson (req, res){
   var person = req.body;
   if(req.session.agent.email === person.email){
+      // FIXME make del & put transactional
     db.jsonld.del(context['@base'] + person['@id'], function(err){
       if(err) return console.error(err);
       db.jsonld.put(person, function(err){
@@ -71,6 +72,7 @@ function saveProject (req, res){
   db.jsonld.get(id, context, function(err, proj){
     db.jsonld.get(context['@base'] + proj.founder, context, function(err, founder){
       if(req.session.agent.email === founder.email){ // FIXME suport multiple founders
+      // FIXME make del & put transactional
         db.jsonld.del(id, function(err){
           if(err) return console.error(err);
           db.jsonld.put(project, function(err){
@@ -98,6 +100,7 @@ function savePage(req, res){
     var page = req.body;
     var id = context['@base'] + page['@id'];
     db.jsonld.get(id, context, function(err, pg){
+      // FIXME make del & put transactional
       db.jsonld.del(id, function(err){
         if(err) return console.error(err);
         db.jsonld.put(page, function(err, obj){
@@ -174,9 +177,6 @@ daemon.put('/projects/:part', saveProject);
 
 daemon.post('/pages/:part', savePage);
 daemon.put('/pages/:part', savePage);
-
-daemon.post('/news/:part', savePage);
-daemon.put('/news/:part', savePage);
 
 var server = http.createServer(daemon);
 server.listen(config.port);
