@@ -230,31 +230,36 @@ $(function(){
     },
 
     root: function(lang){
+      this.setLanguage(lang);
       this.clearPage();
       this.stretchIndex();
       $('#home').show(); // FIXME
     },
 
-    people: function(){
+    people: function(lang){
+      this.setLanguage(lang);
       var index = new Index({ collection: crew });
       this.stretchIndex();
       this.clearPage();
     },
 
     person: function(lang, part){
+      this.setLanguage(lang);
       var profile = new Profile({ model: crew.findWhere({'@id': 'people/' + part}) });
       var sideNav = new SideNav({ collection: crew });
       this.removeIndex();
       this.clearPage();
     },
 
-    projects: function(){
+    projects: function(lang){
+      this.setLanguage(lang);
       var index = new Index({ collection: projects });
       this.stretchIndex();
       this.clearPage();
     },
 
     project: function(lang, part){
+      this.setLanguage(lang);
       var profile = new Profile({ model: projects.findWhere({'@id': 'projects/' + part}) });
       var sideNav = new SideNav({ collection: projects });
       this.removeIndex();
@@ -267,6 +272,7 @@ $(function(){
     },
 
     page: function(lang, part){
+      this.setLanguage(lang);
       var pageView = new PageView({ model: pages.findWhere({'@id': 'pages/' + part}) });
       $('#sidebar').hide(); // FIXME
       if(part !== 'events') {
@@ -278,6 +284,7 @@ $(function(){
     },
 
     event: function(lang, part){
+      this.setLanguage(lang);
       var pageView = new PageView({ model: events.findWhere({'@id': 'events/' + part}) });
       $('#sidebar').hide(); // FIXME
       if(part !== 'events') {
@@ -286,6 +293,10 @@ $(function(){
       this.removeIndex();
       this.clearPartials();
       $('#home').hide(); // FIXME
+    },
+
+    setLanguage: function(lang){
+      window.lang = lang;
     },
 
     clearPage: function(){
