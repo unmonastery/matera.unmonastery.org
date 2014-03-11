@@ -47,7 +47,7 @@ $(function(){
         .end(function(response){
           var scaled = response.text.replace('width="1280"', 'width="640"').replace('height="720"', 'height="360"');
           //FIXME
-          scaled = response.text.replace('width="960"', 'width="640"').replace('height="540"', 'height="360"');
+          scaled = scaled.text.replace('width="960"', 'width="640"').replace('height="540"', 'height="360"');
           this.set('oembed', scaled);
         }.bind(this));
       } else {
@@ -111,7 +111,7 @@ $(function(){
         .end(function(response){
           var scaled = response.text.replace('width="1280"', 'width="640"').replace('height="720"', 'height="360"');
           //FIXME
-          scaled = response.text.replace('width="960"', 'width="640"').replace('height="540"', 'height="360"');
+          scaled = scaled.text.replace('width="960"', 'width="640"').replace('height="540"', 'height="360"');
           this.set('oembed', scaled);
         }.bind(this));
       } else {
