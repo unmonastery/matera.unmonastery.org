@@ -14,6 +14,11 @@ $(function(){
     return '/' + window.lang + '/' + path;
   });
 
+  Handlebars.registerHelper('trim', function(text){
+    var trimmed = text.replace(/(<([^>]+)>)/ig, "");
+    return trimmed.substring(0, 400) + '...';
+  });
+
   var Person = Backbone.Model.extend({
     idAttribute: '@id',
 
@@ -135,7 +140,7 @@ $(function(){
 
     initialize: function(){
       this.on('reset', function(){
-        console.log('People loaded!');
+        console.log('Projects loaded!');
         router.refresh(); // FIXME
       });
       this.fetch({ reset: true });
@@ -143,6 +148,28 @@ $(function(){
   });
 
   var projects = new Projects();
+
+
+  var BlogPosting = Backbone.Model.extend({
+  });
+
+  var BlogPostings = Backbone.Collection.extend({
+    model: BlogPosting,
+
+    url: API_URL + '/posts',
+
+    comparator: 'dateModified',
+
+    initialize: function(){
+      this.on('reset', function(){
+        console.log('Posts loaded!');
+        router.refresh(); // FIXME
+      });
+      this.fetch({ reset: true });
+    }
+  });
+
+  var posts = new BlogPostings();
 
   var Page = Backbone.Model.extend({
     idAttribute: '@id',
@@ -230,6 +257,7 @@ $(function(){
     },
 
     root: function(lang){
+      var postsView = new PostsView();
       this.setLanguage(lang);
       this.clearPage();
       this.stretchIndex();
@@ -657,6 +685,31 @@ $(function(){
     }
   });
 
+  var PostsView = Backbone.View.extend({
+    el: '#announcements',
+
+    initialize: function(){
+      _.bindAll(this, 'render');
+      if(posts.length > 0){
+        this.render();
+      }
+      posts.on('reset', this.render);
+    },
+
+    render: function(){
+      this.$el.empty();
+      console.log('render posts');
+      _.each(_.clone(posts.models).reverse(), function(post){ //#FIXME
+        var data = post.toJSON();
+        data.url = data["@id"];
+        data.text = data.text[lang];
+        if(!data.text) return; // #FIXME dirty way of filtering out other lang :P
+        this.$el.append(JST.postShort(data));
+      }.bind(this));
+    }
+
+  });
+
   var agent = new Person();
   var agentMenu = new AgentMenu({ model: agent });
 
@@ -677,6 +730,7 @@ $(function(){
     projects: projects,
     pages: pages,
     events: events,
+    posts: posts,
     router: router
   };
 
