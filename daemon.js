@@ -198,6 +198,22 @@ daemon.get('/events', function(req, res){
   });
 });
 
+daemon.get('/posts', function(req, res){
+  db.get({
+    predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+    object: 'http://schema.org/BlogPosting'
+  }, function(err, triples){
+    async.map(triples, function(triple, callback){
+      db.jsonld.get(triple.subject, context, function(error, obj){
+        callback(error, obj);
+      }.bind(this));
+    }, function(error, posts){
+      if(error) return console.log(error);
+      res.json(posts);
+    });
+  });
+});
+
 daemon.get('/people/:part', function(req, res){
   var id = 'http://unmonastery.net/people/' + req.params.part;
   db.jsonld.get(id, { '@context': context }, function(err, obj){
